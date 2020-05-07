@@ -6,6 +6,14 @@ block styles
   style.
     * { margin: 0; padding: 0; box-sizing: border-box; }
 block content
+  ul
+    each question in questions
+      li
+        p #{question._id}
+        p #{question.title}
+        p #{question.description}
+        button.btn.btn-primary(id=question._id) Chi tiết
+        button.btn.btn-primary.send-question-button(id=question._id) Gửi câu hỏi
   ul#messages
     form(action='')
       input#m(autocomplete='off', name="message")

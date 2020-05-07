@@ -1,0 +1,57 @@
+xuất hiện màng hình chờ
+
+
+Người chơi
+
+- Giao diện
+
+1 ô Điểm của đội chơi
+
+
+
+xuất ra câu hỏi
+
+nút giành quyền trả lời
+
+
+Admin
+  chức năng:
+  - 1 trang thống kê điểm
+  - 
+  
+  - 1 trang lựa chọn câu hỏi cho vào list câu hỏi submit thực hiện show câu hỏi: 
+      step:
+        - submit -> show câu hỏi ra
+        - đếm ngược để xuất hiện câu hỏi
+        - sau khi xuất hiện câu hỏi đếm ngược thời gian trả lơi
+        - đội nhấn giành quyền trả lời -> xuất hiện 1 thông bảo: tên đội lên + thời gian trả lời từ lúc đếm ngược      
+        - admin xác nhận câu trả lời đúng hoặc sai
+          - 2 button xác nhận đúng hoặc sai
+            - đúng: thực hiện cộng điểm cho đội trả lời
+            - sai: xuất câu trả lời ra màng hình người chơi
+        - sau khi thực hiện xác nhận: trờ về trạng thái chuẩn bị submit câu hỏi kế tiếp
+        
+        - màng hình chờ của người chơi xuất hiện câu hỏi
+        
+  - 
+
+- người chơi:
+  - xuất hiện đếm ngược câu hỏi tiếp theo xuất hiện
+  - kết thúc đếm ngược hiển thị câu hỏi:
+    - xuất hiện 1 button giành quyền trả lời
+    - click chọn:
+      - thực hiện trả lời qua miệng với giám khảo
+        - đúng: tăng Điểm
+    - màng hình đợi câu hỏi tiếp theo
+
+- trang thiết lập câu hỏi
+thực hiện tạo ra 1 list các câu hỏi
+
+
+- to do:
+- ở admin:
+  xuất 1 câu hỏi ra cho tất cả các user
+- ở user:
+  - tạo 1 view
+  - nhận được câu hỏi khi admin gửi
+

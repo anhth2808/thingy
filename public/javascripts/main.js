@@ -7,12 +7,19 @@ var app = {
     const socket = io('/game')
 
     console.log('Start admin views')
-    let value =  $('#m')
-    
-    $('#submit').click(e => {
-      e.preventDefault();
-      socket.emit('question', value.val())
 
+    // send message
+    $('.send-question-button').click(e => {
+
+      const currentQuestion = $(e.target)
+
+      const sendQuest = {
+        _id: currentQuestion.attr('id'),
+      }
+
+      socket.emit('question', sendQuest)
+
+      
     })
   },
 

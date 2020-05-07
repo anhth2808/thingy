@@ -1,4 +1,4 @@
-
+const Question = require("../models/question")
 
 
 const socketio = (io) => {
@@ -22,15 +22,13 @@ const socketio = (io) => {
     socket.on('join', (roomId) => {
 
       socket.join(roomId);
-      sendQuestion(socket, roomId)      
+      // sendQuestion(socket, roomId)      
     })
 
     // admin send message
-    socket.on('question', (msg) => {
-      console.log(msg)
-      if ( msg == 1) {
-        sendQuestion(socket, 1)
-      }
+    socket.on('question', (sendQuest) => {
+
+      sendQuestion(socket, 1, sendQuest._id)
     })
 
     //io.to('1').emit('newQuestion', 'hello');
@@ -44,20 +42,19 @@ const socketio = (io) => {
 
 }
 
-const sendQuestion = (socket, roomId) => {
-  let question = {
-    question: "Question 5 ?",
-    answer: "D",
-    options: [{ val: "A", text: "option A" },
-      { val: "B", text: "option B" },
-      { val: "C", text: "option C" },
-      { val: "D", text: "option D" }
-    ]
-  }
-  socket.emit('newQuestion', question);
-  socket.broadcast.to(roomId).emit('newQuestion', question);
+const sendQuestion = (socket, roomId, questionId) => {
+  Question.findById(questionId)
+  .then(question => {
+    socket.emit('newQuestion', question.title);
+    socket.broadcast.to(roomId).emit('newQuestion', question.title);
+  })  
 }
 
+const timer = (time, action) => {
+  setTimeout(() => {
+    
+  }, time * 1000);
+}
 
 const init = (app) => {
   const server = require('http').Server(app);

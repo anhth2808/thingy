@@ -10,4 +10,6 @@ router.get('/', adminCtrl.getIndex)
 router.post('/', adminCtrl.postIndex)
 
 
+router.get('/create', adminCtrl.postAddQuestion)
+
 module.exports = router
