@@ -1,8 +1,8 @@
 const path = require('path')
 const express = require('express')
 const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
 const mongoose = require('mongoose')
-
 const errorCtrl = require('./app/controllers/error')
 const gameRoutes = require('./app/routes')
 const adminRoutes = require('./app/routes/admin')
@@ -18,8 +18,10 @@ const io = require('./app/socket')(app)
 app.set('view engine', 'pug')
 app.set('views', path.join(__dirname, 'app/views'))
 
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')))
 
 app.use(gameRoutes);
 app.use('/admin', adminRoutes);

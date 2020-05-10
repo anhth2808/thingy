@@ -10,6 +10,16 @@ router.get('/', adminCtrl.getIndex)
 router.post('/', adminCtrl.postIndex)
 
 
-router.get('/create', adminCtrl.postAddQuestion)
+//  question api
+router.get('/question', adminCtrl.questionList)
+
+router.get('/question/:questionid', adminCtrl.quesitonReadOne)
+
+router.post('/question', adminCtrl.questionCreate)
+
+router.put('/api/question/:questionid', adminCtrl.questionUpdateOne)
+
+router.delete('/api/question/:questionid', adminCtrl.questionDeleteOne)
+
 
 module.exports = router

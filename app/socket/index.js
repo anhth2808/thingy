@@ -30,9 +30,6 @@ const socketio = (io) => {
       sendQuestion(socket, 1, sendQuest._id)
     })
 
-    //io.to('1').emit('newQuestion', 'hello');
-
-
     socket.on('disconnect', () => {
       console.log('User disconected')
     })

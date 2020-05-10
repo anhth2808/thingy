@@ -9,61 +9,19 @@ block content
   .section.section-tabs
     .container
       .title
-        h3.mb-3 Navigation Tabs
+        h3.mb-3 Question List
       .row
-        .col-md-12.ml-auto.col-xl-12.mr-auto
-          .mb-3
-            small.text-uppercase.font-weight-bold With icons
-          // Nav tabs
-          .card
-            .card-header
-              ul.nav.nav-tabs.nav-tabs-primary(role='tablist')
-                li.nav-item
-                  a.nav-link.active(data-toggle='tab', href='#link1', role='tablist')
-                    i.tim-icons.icon-spaceship
-                    |  Profile
-                li.nav-item
-                  a.nav-link(data-toggle='tab', href='#link2', role='tablist')
-                    i.tim-icons.icon-settings-gear-63
-                    |  Settings
-                li.nav-item
-                  a.nav-link(data-toggle='tab', href='#link3', role='tablist')
-                    i.tim-icons.icon-bag-16
-                    |  Options
-            .card-body
-              // Tab panes
-              .tab-content.tab-space
-                #link1.tab-pane.active
-                  p
-                    | Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits.
-                    br
-                    br
-                    |  Dramatically visualize customer directed convergence without revolutionary ROI.
-                #link2.tab-pane
-                  p
-                    | Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate one-to-one customer service with robust ideas.
-                    br
-                    br
-                    | Dynamically innovate resource-leveling customer service for state of the art customer service.
-                #link3.tab-pane
-                  p
-                    | Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables for real-time schemas.
-                    br
-                    br
-                    |  Dramatically maintain clicks-and-mortar solutions without functional solutions.
-  .container
-    ul
-      each question in questions
-        li
-          p #{question._id}
-          p #{question.title}
-          p #{question.description}
-          button.btn.btn-primary(id=question._id) Chi tiết
-          button.btn.btn-primary.send-question-button(id=question._id) Gửi câu hỏi
-    ul#messages
-      form(action='')
-        input#m(autocomplete='off', name="message")
-        button#submit Send
+        each question in questions
+          .col-md-12.ml-auto.col-xl-12.mr-auto
+            .card            
+              .card-body
+                .tab-content
+                  .tab-question
+                    p #{question._id}
+                    p #{question.title}
+                    p #{question.description}
+                    button.btn.btn-primary(id=question._id) Chi tiết
+                    button.btn.btn-primary.send-question-button(id=question._id) Gửi câu hỏi            
 block scripts
   script.
     window.onload = function() {
