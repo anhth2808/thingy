@@ -18,10 +18,8 @@ const io = require('./app/socket')(app)
 app.set('view engine', 'pug')
 app.set('views', path.join(__dirname, 'app/views'))
 
-
-
-app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(gameRoutes);
 app.use('/admin', adminRoutes);

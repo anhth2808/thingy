@@ -21,8 +21,7 @@ const socketio = (io) => {
 
     socket.on('join', (roomId) => {
 
-      socket.join(roomId);
-      // sendQuestion(socket, roomId)      
+      socket.join(roomId) 
     })
 
     // admin send message

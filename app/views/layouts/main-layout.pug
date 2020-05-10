@@ -1,24 +1,99 @@
-<!DOCTYPE html>
+doctype html
 html(lang="en")
   head
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    link(rel='apple-touch-icon', sizes='76x76', href='./assets/img/apple-icon.png')
+    link(rel='icon', type='image/png', href='./assets/img/favicon.png')
     title #{pageTitle}
 
-    link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css', integrity='sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh', crossorigin='anonymous')
+    //- link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css', integrity='sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh', crossorigin='anonymous')
+    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800')
+    link(rel='stylesheet', href='https://use.fontawesome.com/releases/v5.0.6/css/all.css')
+
+    link(rel='stylesheet', href='/assets/css/nucleo-icons.css')
+
+
+    //- link(href='/assets/css/blk-design-system.css', rel='stylesheet')
+    link(rel='stylesheet', href='/assets/css/blk-design-system.css')
+
     block styles
     
-  body
-    h1 Heading
-    block content
+  body.landing-page
+    nav.navbar.navbar-expand-lg.fixed-top.navbar-transparent(color-on-scroll='100')
+      .container
+        .navbar-translate
+          a.navbar-brand(href='https://demos.creative-tim.com/blk-design-system/index.html', rel='tooltip', title='Designed and Coded by Creative Tim', data-placement='bottom', target='_blank')
+            span BLK•
+            |  Design System
+        //-   button.navbar-toggler.navbar-toggler(type='button', data-toggle='collapse', data-target='#navigation', aria-controls='navigation-index', aria-expanded='false', aria-label='Toggle navigation')
+        //-     span.navbar-toggler-bar.bar1
+        //-     span.navbar-toggler-bar.bar2
+        //-     span.navbar-toggler-bar.bar3
+        //- #navigation.collapse.navbar-collapse.justify-content-end
+        //-   .navbar-collapse-header
+        //-     .row
+        //-       .col-6.collapse-brand
+        //-         a
+        //-           | BLK•
+        //-       .col-6.collapse-close.text-right
+        //-         button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navigation', aria-controls='navigation-index', aria-expanded='false', aria-label='Toggle navigation')
+        //-           i.tim-icons.icon-simple-remove
+        //-   ul.navbar-nav
+        //-     li.nav-item.p-0
+        //-       a.nav-link(rel='tooltip', title='Follow us on Twitter', data-placement='bottom', href='https://twitter.com/CreativeTim', target='_blank')
+        //-         i.fab.fa-twitter
+        //-         p.d-lg-none.d-xl-none Twitter
+        //-     li.nav-item.p-0
+        //-       a.nav-link(rel='tooltip', title='Like us on Facebook', data-placement='bottom', href='https://www.facebook.com/CreativeTim', target='_blank')
+        //-         i.fab.fa-facebook-square
+        //-         p.d-lg-none.d-xl-none Facebook
+        //-     li.nav-item.p-0
+        //-       a.nav-link(rel='tooltip', title='Follow us on Instagram', data-placement='bottom', href='https://www.instagram.com/CreativeTimOfficial', target='_blank')
+        //-         i.fab.fa-instagram
+        //-         p.d-lg-none.d-xl-none Instagram
+        //-     li.nav-item
+        //-       a.nav-link(href='../index.html') Back to Kit
+        //-     li.nav-item
+              a.nav-link(href='https://github.com/creativetimofficial/blk-design-system/issues') Have an issue?
+    .wrapper
+      .page-header
+        img.path(src='../assets/img/blob.png')
+        img.path2(src='../assets/img/path2.png')
+        img.shapes.triangle(src='../assets/img/triunghiuri.png')
+        img.shapes.wave(src='../assets/img/waves.png')
+        img.shapes.squares(src='../assets/img/patrat.png')
+        img.shapes.circle(src='../assets/img/cercuri.png')
+        block content
+         
+            
 
-    script(src='https://code.jquery.com/jquery-3.4.1.slim.min.js', integrity='sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n', crossorigin='anonymous')
-    script(src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js', integrity='sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo', crossorigin='anonymous')
-    script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js', integrity='sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6', crossorigin='anonymous')
+
+  
+    //- script(src='https://code.jquery.com/jquery-3.4.1.slim.min.js', integrity='sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n', crossorigin='anonymous')
+    //- script(src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js', integrity='sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo', crossorigin='anonymous')
+    //- script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js', integrity='sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6', crossorigin='anonymous')
     
-    script(src='http://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js')
+
+    script(src='/assets/js/core/jquery.min.js')
+    script(src='/assets/js/core/popper.min.js')
+    script(src='/assets/js/core/bootstrap.min.js')
+    script(src='/assets/js/plugins/perfect-scrollbar.jquery.min.js')
+
+    script(src='/assets/js/plugins/bootstrap-switch.js')
+
+    script(src='/assets/js/plugins/nouislider.min.js')
+
+    script(src='/assets/js/plugins/chartjs.min.js')
+
+    script(src='/assets/js/plugins/moment.min.js')
+    script(src='/assets/js/plugins/bootstrap-datetimepicker.js')
+
+    script(src='/assets/js/blk-design-system.min.js')
+
+    //- script(src='http://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js')
     script(src='/socket.io/socket.io.js')
-    script(src="/javascripts/main.js")
+    script(src="/assets/js/main.js")
+    
     block scripts
-      
