@@ -17,55 +17,27 @@ html(lang="en")
 
     //- link(href='/assets/css/blk-design-system.css', rel='stylesheet')
     link(rel='stylesheet', href='/assets/css/blk-design-system.css')
-
+    link(rel='stylesheet', href='/assets/css/mystyle.css')
     block styles
     
   body.landing-page
-    nav.navbar.navbar-expand-lg.fixed-top.navbar-transparent(color-on-scroll='100')
+    nav.navbar.navbar-expand-lg.navbar-transparent(color-on-scroll='100')
       .container
         .navbar-translate
           a.navbar-brand(href='https://demos.creative-tim.com/blk-design-system/index.html', rel='tooltip', title='Designed and Coded by Creative Tim', data-placement='bottom', target='_blank')
             span BLK•
             |  Design System
-        //-   button.navbar-toggler.navbar-toggler(type='button', data-toggle='collapse', data-target='#navigation', aria-controls='navigation-index', aria-expanded='false', aria-label='Toggle navigation')
-        //-     span.navbar-toggler-bar.bar1
-        //-     span.navbar-toggler-bar.bar2
-        //-     span.navbar-toggler-bar.bar3
-        //- #navigation.collapse.navbar-collapse.justify-content-end
-        //-   .navbar-collapse-header
-        //-     .row
-        //-       .col-6.collapse-brand
-        //-         a
-        //-           | BLK•
-        //-       .col-6.collapse-close.text-right
-        //-         button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navigation', aria-controls='navigation-index', aria-expanded='false', aria-label='Toggle navigation')
-        //-           i.tim-icons.icon-simple-remove
-        //-   ul.navbar-nav
-        //-     li.nav-item.p-0
-        //-       a.nav-link(rel='tooltip', title='Follow us on Twitter', data-placement='bottom', href='https://twitter.com/CreativeTim', target='_blank')
-        //-         i.fab.fa-twitter
-        //-         p.d-lg-none.d-xl-none Twitter
-        //-     li.nav-item.p-0
-        //-       a.nav-link(rel='tooltip', title='Like us on Facebook', data-placement='bottom', href='https://www.facebook.com/CreativeTim', target='_blank')
-        //-         i.fab.fa-facebook-square
-        //-         p.d-lg-none.d-xl-none Facebook
-        //-     li.nav-item.p-0
-        //-       a.nav-link(rel='tooltip', title='Follow us on Instagram', data-placement='bottom', href='https://www.instagram.com/CreativeTimOfficial', target='_blank')
-        //-         i.fab.fa-instagram
-        //-         p.d-lg-none.d-xl-none Instagram
-        //-     li.nav-item
-        //-       a.nav-link(href='../index.html') Back to Kit
-        //-     li.nav-item
-              a.nav-link(href='https://github.com/creativetimofficial/blk-design-system/issues') Have an issue?
+    
     .wrapper
-      .page-header
-        img.path(src='../assets/img/blob.png')
-        img.path2(src='../assets/img/path2.png')
-        img.shapes.triangle(src='../assets/img/triunghiuri.png')
-        img.shapes.wave(src='../assets/img/waves.png')
-        img.shapes.squares(src='../assets/img/patrat.png')
-        img.shapes.circle(src='../assets/img/cercuri.png')
-        block content
+      .page-background
+        .page-header
+          img.path(src='../assets/img/blob.png')
+          img.path2(src='../assets/img/path2.png')
+          img.shapes.triangle(src='../assets/img/triunghiuri.png')
+          img.shapes.wave(src='../assets/img/waves.png')
+          img.shapes.squares(src='../assets/img/patrat.png')
+          img.shapes.circle(src='../assets/img/cercuri.png')
+      block content
          
             
 

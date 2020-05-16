@@ -5,7 +5,26 @@ include ../_includes/sharedHTMLfunctions.pug
 block styles
 
 block content
-
+  .container
+    .row
+      .section.mod-game.col-lg-9
+        .container.align-items-center
+          .row
+            .col-lg-12.card.card-plain.game-table
+              .card-header                
+                .h3.text-center Title
+                .timer
+              .card-body
+                .tab-content.game-screen
+              .submit-awswer
+                button.btn.btn-success Trả lời                   
+      .section.card.card-plain.game-table.col-lg-3.pl-5
+        .card-header
+          .h3 Title
+          .card-body
+            .tab-content 
+              p hello word
+              p i'm hoang anh   
 block scripts
   script.
     window.onload = function() {

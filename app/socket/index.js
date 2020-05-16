@@ -41,15 +41,27 @@ const socketio = (io) => {
 const sendQuestion = (socket, roomId, questionId) => {
   Question.findById(questionId)
   .then(question => {
-    socket.emit('newQuestion', question.title);
-    socket.broadcast.to(roomId).emit('newQuestion', question.title);
-  })  
+    timer(socket, roomId, question.time, () => {
+      socket.emit('newQuestion', question.title);
+      socket.broadcast.to(roomId).emit('newQuestion', question.title);
+    })
+  })
 }
 
-const timer = (time, action) => {
-  setTimeout(() => {
-    
-  }, time * 1000);
+const timer = (socket, roomId, time, action) => {
+  let intervalId = null
+  const intervalFunc = () => {
+    time = time - 1
+    socket.emit('timer', time);
+    socket.broadcast.to(roomId).emit('timer', time);
+
+    if (time <= 0) {
+      clearInterval(intervalId)
+      action()
+    }
+  }
+
+  intervalId = setInterval(intervalFunc, 1000);
 }
 
 const init = (app) => {

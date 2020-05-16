@@ -1,0 +1,47 @@
+.mod-game .game-table {
+  height: calc(100vh - 140px);
+  border: 1px solid red;
+}
+
+.timer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 20px;
+  background: blue;
+  min-width: 60px;
+  min-height: 60px;
+  border: 1px solid red;
+}
+
+.section {
+  padding: 30px 0 0 0;
+}
+
+
+
+.page-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+}
+
+
+.space-10 {
+  height: 10px;
+}
+.space-20 {
+  height: 20px;
+}
+.space-30 {
+  height: 30px;
+}
+.space-40 {
+  height: 40px;
+}
+.space-50 {
+  height: 50px;
+}

@@ -30,7 +30,15 @@ var app = {
 
       
       socket.on('newQuestion', (question) => {
-        console.log(question)
+        $('.game-screen ')
+          .html(question)
+      })
+
+      socket.on('timer', (time) => {
+        $('.timer').text(time)
+        if (time === 0) {
+          $('.timer').text('')
+        }        
       })
     })
     // socket.on('update', () => {
