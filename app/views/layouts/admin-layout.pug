@@ -41,11 +41,9 @@ html(lang="en")
                 button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navigation', aria-controls='navigation-index', aria-expanded='false', aria-label='Toggle navigation')
                   i.tim-icons.icon-simple-remove
           ul.navbar-nav
-            - if (!isAuthenticated) {
+            - if (!isAuthenticated && !isAdmin) {
               li.nav-item.p-0.ml-auto
                 a.nav-link.btn.btn-default(href='/login') Đăng nhập
-              li.nav-item.p-0.ml-auto
-                a.nav-link.btn.btn-default(href='/signup') Đăng kí
             - } else {
               li.nav-item.p-0.ml-auto
                 form(action="/logout", method="post")
@@ -63,8 +61,7 @@ html(lang="en")
           img.shapes.squares(src='../assets/img/patrat.png')
           img.shapes.circle(src='../assets/img/cercuri.png')
       block content
-         
-
+                   
     script(src='/assets/js/core/jquery.min.js')
     script(src='/assets/js/core/popper.min.js')
     script(src='/assets/js/core/bootstrap.min.js')

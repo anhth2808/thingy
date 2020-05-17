@@ -1,13 +1,14 @@
 const path = require('path')
 const express = require('express')
 
+const isAdmin = require("../middleware/is-admin")
 const adminCtrl = require('../controllers/admin')
 
 const router = express.Router()
 
-router.get('/', adminCtrl.getIndex)
+router.get('/', isAdmin, adminCtrl.getIndex)
 
-router.post('/', adminCtrl.postIndex)
+router.post('/', isAdmin, adminCtrl.postIndex)
 
 
 //  question api
