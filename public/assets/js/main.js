@@ -2,11 +2,16 @@
 var currentQuestion = null;
 var playerScore = 0;
 
+const HOST = window.location.origin + '/admin'
+
 var app = {
   admin: () => {
     const socket = io('/game')
+    socket.emit('join', 1);
 
-    console.log('Start admin views')
+    socket.on('adminAnwser', team => {
+      console.log(team)
+    })
 
     // send message
     $('.send-question-button').click(e => {
@@ -32,21 +37,66 @@ var app = {
       socket.on('newQuestion', (question) => {
         $('.game-screen ')
           .html(question)
+        
+      })
+      
+      socket.on('timer', (timeObj) => {        
+        $('.timer').text(timeObj.downTime)
+        $('.submit-awswer button').addClass('d-none') 
+
+        if (timeObj.downTime === 0 || timeObj.isRun === false) {
+          $('.timer').text('')
+          $('.submit-awswer button').removeClass('d-none') 
+        }
       })
 
-      socket.on('timer', (time) => {
-        $('.timer').text(time)
-        if (time === 0) {
-          $('.timer').text('')
-        }        
+      $('.submit-awswer button').click(() => {
+        socket.emit('receiveAnwser', 'Đội a')
+        $('.submit-awswer button').addClass('d-none') 
       })
+
     })
-    // socket.on('update', () => {
-    //   socket.on()
-    // })
+  },
+
+  room: () =>  {
+    const getRoomList = () => {
+      const roomListAPI = HOST + '/room'      
+      
+      fetch(roomListAPI, {
+        method: "GET",
+        // headers: {
+        //     "csrf-token": csrf
+        // }
+      })
+      .then(result => {
+        return result.json()
+      })
+      .then(data => {
+        data.forEach(room => {
+          app.helpers.showRoom(room)
+        })
+      })
+      .catch(err => {
+          console.log(err);
+      });      
+    }
+
   },
 
   helpers: {
-    
+    showRoom: (room) => {
+      const tabRoom = $('.tab-room')
+      const html = `<div class="col-md-12 ml-auto col-xl-12 mr-auto">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="tab-content">
+                            <div class="tab-room">
+                              <p>room title</p><button class="btn btn-primary">Tham gia</button></div>
+                            </div>
+                          </div>
+                      </div>
+                    </div>`
+      tabRoom.append(html)
+    }
   }
 };

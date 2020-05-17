@@ -22,5 +22,11 @@ router.put('/api/question/:questionid', adminCtrl.questionUpdateOne)
 
 router.delete('/api/question/:questionid', adminCtrl.questionDeleteOne)
 
+//  room api
+router.get('/room', adminCtrl.roomList)
+
+router.post('/room', adminCtrl.roomCreate)
+
+
 
 module.exports = router

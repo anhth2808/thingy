@@ -11,17 +11,20 @@ block content
       .title
         h3.mb-3 Question List
       .row
-        each question in questions
-          .col-md-12.ml-auto.col-xl-12.mr-auto
-            .card            
-              .card-body
-                .tab-content
-                  .tab-question
-                    p #{question._id}
-                    p #{question.title}
-                    p #{question.description}
-                    button.btn.btn-primary(id=question._id) Chi tiết
-                    button.btn.btn-primary.send-question-button(id=question._id) Gửi câu hỏi            
+        if questions.length > 0
+          each question in questions
+            .col-md-12.ml-auto.col-xl-12.mr-auto
+              .card            
+                .card-body
+                  .tab-content
+                    .tab-question
+                      p #{question._id}
+                      p #{question.title}
+                      p #{question.description}
+                      button.btn.btn-primary(id=question._id) Chi tiết
+                      button.btn.btn-primary.send-question-button(id=question._id) Gửi câu hỏi
+        else
+          h1 Không có phòng
 block scripts
   script.
     window.onload = function() {

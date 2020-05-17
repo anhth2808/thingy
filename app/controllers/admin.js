@@ -2,6 +2,9 @@ const path = require("path")
 const sendJsonResponse = require('../util/Helper').sendJsonResponse
 
 const Question = require("../models/question")
+const Room = require("../models/room")
+
+
 
 exports.getIndex = (req, res, next) => {  
   Question.find()
@@ -11,8 +14,6 @@ exports.getIndex = (req, res, next) => {
       questions: questions
     })
   })
-
-
 }
 
 exports.postIndex = (req, res, next) => {  
@@ -21,6 +22,10 @@ exports.postIndex = (req, res, next) => {
   
 }
 
+
+// ----------------------------API------------------------------------
+
+// Quesiton api
 exports.questionList = (req, res, next) => {
   Question.find()
   .then(questions => {
@@ -86,7 +91,6 @@ exports.questionCreate = (req, res, next) => {
   
 }
 
-
 exports.questionUpdateOne = (req, res, next) => {
 
   Question.findById(req.params.questionid)
@@ -120,7 +124,6 @@ exports.questionUpdateOne = (req, res, next) => {
     })
 }
 
-
 exports.questionDeleteOne = (req, res, next) => {
   const questionId = req.params.questionid
 
@@ -152,3 +155,40 @@ exports.questionDeleteOne = (req, res, next) => {
 
 }
 
+// Room api
+exports.roomList = (req, res, next) => {
+  Room.find()
+    .then(rooms => {
+      if (!rooms) {
+        sendJsonResponse(res, 404, {
+          "message": "Not found"
+        })
+        return
+      }
+      sendJsonResponse(res, 200, rooms)
+    })
+    .catch(err => {
+      const error = new Error(err)
+        error.httpStatusCode = 500
+        return next(error)
+    })
+}
+
+exports.roomCreate = (req, res, next) => {   
+  const title = req.body.title
+
+  const room = new Room({
+    title: title
+  })
+
+  room.save()
+    .then(result => {
+      sendJsonResponse(res, 201, {message: 'hello'})
+    })
+    .catch(err => {
+      const error = new Error(err)
+      error.httpStatusCode = 500
+      return next(error)
+    })
+  
+}

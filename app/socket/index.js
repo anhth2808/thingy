@@ -1,5 +1,7 @@
 const Question = require("../models/question")
 
+const QUESTION_APPEAR_TIME = 10
+let isReceived = false
 
 const socketio = (io) => {
 
@@ -20,14 +22,17 @@ const socketio = (io) => {
     console.log('User is connected to game')
 
     socket.on('join', (roomId) => {
-
       socket.join(roomId) 
     })
 
     // admin send message
     socket.on('question', (sendQuest) => {
-
       sendQuestion(socket, 1, sendQuest._id)
+    })
+
+    socket.on('receiveAnwser', (team) => {
+      isReceived = true
+      socket.broadcast.to(1).emit('adminAnwser', team);
     })
 
     socket.on('disconnect', () => {
@@ -41,7 +46,7 @@ const socketio = (io) => {
 const sendQuestion = (socket, roomId, questionId) => {
   Question.findById(questionId)
   .then(question => {
-    timer(socket, roomId, question.time, () => {
+    timer(socket, roomId, QUESTION_APPEAR_TIME, () => {
       socket.emit('newQuestion', question.title);
       socket.broadcast.to(roomId).emit('newQuestion', question.title);
     })
@@ -50,15 +55,22 @@ const sendQuestion = (socket, roomId, questionId) => {
 
 const timer = (socket, roomId, time, action) => {
   let intervalId = null
+  let timeObj = {
+    downTime: time,
+    isRun: true
+  }
   const intervalFunc = () => {
-    time = time - 1
-    socket.emit('timer', time);
-    socket.broadcast.to(roomId).emit('timer', time);
+    timeObj.downTime -= 1
+    if (timeObj.downTime <= 0 || isReceived === true) {
+      isReceived = false
+      timeObj.isRun = false
 
-    if (time <= 0) {
+      // stop timer
       clearInterval(intervalId)
       action()
     }
+    socket.emit('timer', timeObj);
+    socket.broadcast.to(roomId).emit('timer', timeObj);
   }
 
   intervalId = setInterval(intervalFunc, 1000);

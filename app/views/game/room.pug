@@ -1,0 +1,26 @@
+extends ../layouts/main-layout.pug
+
+include ../_includes/sharedHTMLfunctions.pug
+
+block styles
+  style.
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+block content
+  .section.section-tabs
+    .container
+      .title
+        h3.mb-3 Room list
+      .row.tab-room
+        each room in rooms
+          .col-md-12.ml-auto.col-xl-12.mr-auto
+            .card            
+              .card-body
+                .tab-content
+                  p #{room.title}
+                  a.btn.btn-primary(href="/game", rommid=room._id) Tham gia
+  
+block scripts
+  script.
+    window.onload = function() {
+       $(function(){app.room()});
+    }

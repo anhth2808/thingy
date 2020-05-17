@@ -6,9 +6,7 @@ const gameCtrl = require('../controllers/game')
 
 const router = express.Router()
 
-router.get('/', isAuth, (req, res, next) => {
-  res.redirect('/game')
-})
+router.get('/', isAuth, gameCtrl.getRooms)
 router.get('/game', isAuth, gameCtrl.getIndex)
 
 module.exports = router
