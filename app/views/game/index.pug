@@ -5,6 +5,8 @@ include ../_includes/sharedHTMLfunctions.pug
 block styles
 
 block content
+  input(type="hidden", value=roomId, class="room-id")
+  input(type="hidden", value=user._id, class="user-id")
   .container
     .row
       .section.mod-game.col-lg-9

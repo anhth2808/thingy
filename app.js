@@ -7,6 +7,7 @@ const mongoose = require('mongoose')
 const MongoDBStore = require("connect-mongodb-session")(session)
 const flash = require("connect-flash")
 const csrf = require("csurf")
+const User = require('./app/models/user')
 
 const errorCtrl = require('./app/controllers/error')
 const gameRoutes = require('./app/routes')
@@ -38,6 +39,23 @@ app.use(flash())
 app.use(
   session({ secret: "a long string", resave: false, saveUninitialized: false, store: store })
 )
+app.use((req, res, next) => {
+  if (!req.session.user) {
+    return next();
+  }
+
+  User.findById(req.session.user._id)
+    .then(user => {
+      if (!user) {
+        return next()
+      }
+      req.user = user
+      next()
+    })
+    .catch(err => {
+      next(new Error(err))
+    })
+})
 
 app.use((req, res, next) => {
   res.locals.isAuthenticated = req.session.isLoggedIn

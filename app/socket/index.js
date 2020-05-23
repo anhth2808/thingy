@@ -1,4 +1,5 @@
-const Question = require("../models/question")
+const Question = require('../models/question')
+const Room = require('../models/room')
 
 const QUESTION_APPEAR_TIME = 10
 let isReceived = false
@@ -21,18 +22,26 @@ const socketio = (io) => {
   io.of('/game').on('connection', (socket) => {
     console.log('User is connected to game')
 
-    socket.on('join', (roomId) => {
-      socket.join(roomId) 
+    socket.on('join', (connectInfo) => {
+      socket.join(connectInfo.roomId)
+      Room.findById(connectInfo.roomId)
+        .then(room => {
+          if (!room) {
+            console.log("room not found")
+            return
+          }
+          room.addUserToRoom(connectInfo.userId)
+        })
     })
 
     // admin send message
     socket.on('question', (sendQuest) => {
-      sendQuestion(socket, 1, sendQuest._id)
+      sendQuestion(socket, '5ec11f5f68090d33a4287d6b', sendQuest._id)
     })
 
     socket.on('receiveAnwser', (team) => {
       isReceived = true
-      socket.broadcast.to(1).emit('adminAnwser', team);
+      socket.broadcast.to('5ec11f5f68090d33a4287d6b').emit('adminAnwser', team);
     })
 
     socket.on('disconnect', () => {

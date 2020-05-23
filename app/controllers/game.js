@@ -15,6 +15,10 @@ exports.getRooms = (req, res, next) => {
 
 
 exports.getIndex = (req, res, next) => {  
+  const roomId = req.params.id
+
   res.render('./game/index', {
+    roomId: roomId,
+    user: req.user
   })
 }

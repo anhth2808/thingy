@@ -11,7 +11,8 @@ exports.getIndex = (req, res, next) => {
   .then(questions => {
     res.render('./admin/index', {
       pageTitle: 'Admin page',
-      questions: questions
+      questions: questions,
+      user: req.user
     })
   })
 }

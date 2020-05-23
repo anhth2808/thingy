@@ -8,5 +8,6 @@ const router = express.Router()
 
 router.get('/', isAuth, gameCtrl.getRooms)
 router.get('/game', isAuth, gameCtrl.getIndex)
+router.get('/game/:id', isAuth, gameCtrl.getIndex)
 
 module.exports = router

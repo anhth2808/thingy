@@ -7,7 +7,17 @@ const HOST = window.location.origin + '/admin'
 var app = {
   admin: () => {
     const socket = io('/game')
-    socket.emit('join', 1);
+
+    const userId = $('.user-id').val()
+    
+    const connectInfo = {
+      roomId: '5ec11f5f68090d33a4287d6b',
+      userId: userId
+    }
+
+    socket.emit('join', connectInfo);
+
+
 
     socket.on('adminAnwser', team => {
       console.log(team)
@@ -31,8 +41,16 @@ var app = {
   game: () =>  {
     const socket = io('/game');
     socket.on('connect', (question) => {
-      socket.emit('join', 1);
+      const roomId = $('.room-id').val()
+      const userId = $('.user-id').val()
 
+      const connectInfo = {
+        roomId: roomId,
+        userId: userId
+      }
+
+      console.log(roomId)
+      socket.emit('join', connectInfo)
       
       socket.on('newQuestion', (question) => {
         $('.game-screen ')
