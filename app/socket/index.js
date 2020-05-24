@@ -2,7 +2,7 @@ const Question = require('../models/question')
 const Room = require('../models/room')
 
 const QUESTION_APPEAR_TIME = 10
-let isReceived = false
+let IS_RECEIVED =  false
 
 const socketio = (io) => {
 
@@ -36,11 +36,12 @@ const socketio = (io) => {
 
     // admin send message
     socket.on('question', (sendQuest) => {
+      IS_RECEIVED = false
       sendQuestion(socket, '5ec11f5f68090d33a4287d6b', sendQuest._id)
     })
 
     socket.on('receiveAnwser', (team) => {
-      isReceived = true
+      IS_RECEIVED = true
       socket.broadcast.to('5ec11f5f68090d33a4287d6b').emit('adminAnwser', team);
     })
 
@@ -56,7 +57,7 @@ const sendQuestion = (socket, roomId, questionId) => {
   Question.findById(questionId)
   .then(question => {
     timer(socket, roomId, QUESTION_APPEAR_TIME, () => {
-      socket.emit('newQuestion', question.title);
+      // socket.emit('newQuestion', question.title);
       socket.broadcast.to(roomId).emit('newQuestion', question.title);
     })
   })
@@ -70,15 +71,15 @@ const timer = (socket, roomId, time, action) => {
   }
   const intervalFunc = () => {
     timeObj.downTime -= 1
-    if (timeObj.downTime <= 0 || isReceived === true) {
-      isReceived = false
+    if (timeObj.downTime <= 0 || IS_RECEIVED === true) {
+      IS_RECEIVED = false
       timeObj.isRun = false
 
-      // stop timer
+      // stop timer & send question
       clearInterval(intervalId)
       action()
     }
-    socket.emit('timer', timeObj);
+    // socket.emit('timer', timeObj);
     socket.broadcast.to(roomId).emit('timer', timeObj);
   }
 

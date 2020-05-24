@@ -7,35 +7,67 @@ const HOST = window.location.origin + '/admin'
 var app = {
   admin: () => {
     const socket = io('/game')
-
     const userId = $('.user-id').val()
-    
     const connectInfo = {
       roomId: '5ec11f5f68090d33a4287d6b',
       userId: userId
     }
 
+    // join room
     socket.emit('join', connectInfo);
 
-
-
+    // get team anwser
     socket.on('adminAnwser', team => {
       console.log(team)
     })
 
-    // send message
-    $('.send-question-button').click(e => {
+    // send message to teams
+    // $('.send-question-button').click(e => {
+    //   const currentQuestion = $(e.target)
+    //   const sendQuest = {
+    //     _id: currentQuestion.attr('id'),
+    //   }
+    //   socket.emit('question', sendQuest)      
+    // })
 
-      const currentQuestion = $(e.target)
+    const socketSendMessageToTeams = () => {
+      $('.send-question-button').click(e => {
+        const currentQuestion = $(e.target)
+        const sendQuest = {
+          _id: currentQuestion.attr('id'),
+        }
+        socket.emit('question', sendQuest)      
+      })
+    }
 
-      const sendQuest = {
-        _id: currentQuestion.attr('id'),
-      }
-
-      socket.emit('question', sendQuest)
-
+    // AJAX Function
+    const getCollection = (collectionId) => {
+      // const API = HOST + `/collection/${collectionId}`
+      const API = HOST + `/collection/5eca411c744ee9671cdea6fb`
       
-    })
+      fetch(API, {
+        method: "GET",
+      })
+      .then(result => {
+        return result.json()
+      })
+      .then(data => {
+        data.questions.forEach(question => {
+          app.helpers.showCollectionQuestion(question)
+          socketSendMessageToTeams()
+        })
+      })
+      .catch(err => {
+        console.log(err)
+      });      
+    }
+    
+    // AJAX running function
+    getCollection()
+
+
+    // socket running function
+    socketSendMessageToTeams()
   },
 
   game: () =>  {
@@ -115,6 +147,25 @@ var app = {
                       </div>
                     </div>`
       tabRoom.append(html)
+    },
+    showCollectionQuestion: (question) => {
+      const container = $('.collection-container')
+      const html = `<div class="col-md-12 ml-auto col-xl-12 mr-auto">
+                      <div class="card">
+                          <div class="card-body">
+                              <div class="tab-content">
+                                  <div class="tab-question">
+                                    <p></p>
+                                    <p></p>
+                                    <p></p>
+                                    <button id="${question.questionId._id}" class="btn btn-primary ">Chi tiết</button>
+                                    <button id="${question.questionId._id}" class="btn btn-primary send-question-button">Gửi câu hỏi</button>                                    
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>`
+        container.append(html)      
     }
   }
 };

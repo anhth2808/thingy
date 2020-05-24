@@ -3,6 +3,7 @@ const express = require('express')
 
 const isAdmin = require("../middleware/is-admin")
 const adminCtrl = require('../controllers/admin')
+const collectionCtrl = require('../controllers/collection')
 
 const router = express.Router()
 
@@ -27,6 +28,12 @@ router.get('/room', adminCtrl.roomList)
 
 router.post('/room', adminCtrl.roomCreate)
 
+// collection api
+router.get('/collection', collectionCtrl.collectionList)
+
+router.get('/collection/:collectionid', collectionCtrl.collectionReadOne)
+
+router.post('/collection', collectionCtrl.collectionCreate)
 
 
 module.exports = router
