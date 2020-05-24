@@ -24,24 +24,20 @@ roomSchema.methods.addUserToRoom = function(userId) {
     // console.log('connections2: ', this.connections)
   User.findById(userId)
     .then(user => {
-      let exits = 1
-      console.log('connections: ', this.connections)
+      let exits = 0
       if (this.connections.length > 0) {
         exits = this.connections.filter(connection => {
           if (connection.user._id.toString() === userId)
-            console.log('true')
-          return connection.user._id.toString() === userId
+            return connection.user._id.toString() === userId
         }).length
 
       }
-      console.log('exits:', exits)
 
-      if (user && user.admin === false && !exits) {
+      if (user && (user.admin === false) && !exits) {
         this.connections.push({
           user: user,
           score: 0,
         })
-        console.log('added')
         return this.save()
       }
     })    
