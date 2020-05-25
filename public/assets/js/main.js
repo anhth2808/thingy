@@ -18,7 +18,13 @@ var app = {
 
     // get team anwser
     socket.on('adminAnwser', team => {
-      console.log(team)
+      const html = `<tr>
+                      <th scope="row">1</th>
+                      <td>${team.userName}</td>
+                      <td>31s</td>
+                    </tr>`
+      $('.answer-team tbody')
+        .append(html)
     })
 
     // send message to teams
@@ -101,7 +107,13 @@ var app = {
       })
 
       $('.submit-awswer button').click(() => {
-        socket.emit('receiveAnwser', 'Đội a')
+        const userId = $('.user-id').val()
+        const userName = $('.user-name').val()
+        const teamInfo = {
+          userId: userId,
+          userName: userName
+        }
+        socket.emit('receiveAnwser', teamInfo)
         $('.submit-awswer button').addClass('d-none') 
       })
 

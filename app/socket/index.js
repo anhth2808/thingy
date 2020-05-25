@@ -1,7 +1,7 @@
 const Question = require('../models/question')
 const Room = require('../models/room')
 
-const QUESTION_APPEAR_TIME = 10
+const QUESTION_APPEAR_TIME = 5
 let IS_RECEIVED =  false
 
 const socketio = (io) => {
@@ -40,9 +40,9 @@ const socketio = (io) => {
       sendQuestion(socket, '5ec11f5f68090d33a4287d6b', sendQuest._id)
     })
 
-    socket.on('receiveAnwser', (team) => {
+    socket.on('receiveAnwser', (teamInfo) => {
       IS_RECEIVED = true
-      socket.broadcast.to('5ec11f5f68090d33a4287d6b').emit('adminAnwser', team);
+      socket.broadcast.to('5ec11f5f68090d33a4287d6b').emit('adminAnwser', teamInfo);
     })
 
     socket.on('disconnect', () => {

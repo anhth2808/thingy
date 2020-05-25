@@ -10,7 +10,7 @@ block content
   .section.section-tabs
     .container
       .row
-        .col-8.question-list
+        .col-7.question-list
           .title
             h3.mb-3 Question List
           .row.collection-container
@@ -28,8 +28,51 @@ block content
           //-               button.btn.btn-primary.send-question-button(id=question._id) Gửi câu hỏi
           //- else
           //-   h1 Không có phòng
-        .col-4
-          p hello
+        .col-5
+          .mb-3
+            small.text-uppercase.font-weight-bold With text
+          // Tabs with Background on Card
+          .card
+            .card-header
+              ul.nav.nav-tabs.nav-tabs-primary(role='tablist')
+                li.nav-item
+                  a.nav-link.active(data-toggle='tab', href='#link4', role='tablist')
+                    | Đội trả lời
+                li.nav-item
+                  a.nav-link(data-toggle='tab', href='#link5', role='tablist')
+                    | Bảng xếp hạng
+            .card-body
+              // Tab panes
+              .tab-content.tab-space
+                #link4.tab-pane.answer-team.active
+                  table.table
+                    thead
+                      tr
+                        th(scope="col") #
+                        th(scope="col") Đội
+                        th(scope="col") Time
+                    tbody
+                      tr
+                        th(scope="row") 1
+                        td Mark
+                        td 31s
+                      tr
+                        th(scope="row") 1
+                        td Mark
+                        td 31s
+                    
+                #link5.tab-pane.ranking
+                  table.table
+                    thead
+                      tr
+                        th(scope="col") #
+                        th(scope="col") Đội
+                        th(scope="col") Điểm
+                    tbody
+                      tr
+                        th(scope="row") 1
+                        td Mark
+                        td 91
 block scripts
   script.
     window.onload = function() {
