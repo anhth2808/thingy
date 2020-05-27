@@ -16,11 +16,16 @@ exports.getRooms = (req, res, next) => {
 
 exports.getIndex = (req, res, next) => {  
   const roomId = req.params.id
+
+  
   if (roomId) {
-    res.render('./game/index', {
-      roomId: roomId,
-      user: req.user
-    })
+    Room.findById(roomId)
+    .then(room => {
+      res.render('./game/index', {
+        room: room,
+        user: req.user
+      })
+    })    
   } else {
     res.redirect("/")
   }

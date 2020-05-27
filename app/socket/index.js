@@ -1,6 +1,7 @@
 const Question = require('../models/question')
 const Room = require('../models/room')
 
+const DEFAULT_ROOM_ID = '5ec11f5f68090d33a4287d6b'
 const QUESTION_APPEAR_TIME = 5
 let IS_RECEIVED =  false
 
@@ -37,12 +38,19 @@ const socketio = (io) => {
     // admin send message
     socket.on('question', (sendQuest) => {
       IS_RECEIVED = false
-      sendQuestion(socket, '5ec11f5f68090d33a4287d6b', sendQuest._id)
+      sendQuestion(socket, DEFAULT_ROOM_ID, sendQuest._id)
     })
 
     socket.on('receiveAnwser', (teamInfo) => {
       IS_RECEIVED = true
-      socket.broadcast.to('5ec11f5f68090d33a4287d6b').emit('adminAnwser', teamInfo);
+      socket.broadcast.to(DEFAULT_ROOM_ID).emit('adminAnwser', teamInfo);
+    })
+
+    socket.on('updateTeamScore', (updateInfo) => {
+      Room.findById(DEFAULT_ROOM_ID)
+        .then(room => {
+          room.updateUserScore(updateInfo.userId, socket)
+        })
     })
 
     socket.on('disconnect', () => {

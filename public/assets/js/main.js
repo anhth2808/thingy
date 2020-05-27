@@ -19,23 +19,32 @@ var app = {
     // get team anwser
     socket.on('adminAnwser', team => {
       const html = `<tr>
-                      <th scope="row">1</th>
+                      <th scope="row">*</th>
                       <td>${team.userName}</td>
-                      <td>31s</td>
+                      <td><button id="${team.userId}" class="btn submit-awnser btn-link btn-success">Success&nbsp;<i class="tim-icons icon-spaceship"></i></button></td>
                     </tr>`
       $('.answer-team tbody')
         .append(html)
+      socketSubmitAwnser(team.userId)
     })
 
-    // send message to teams
-    // $('.send-question-button').click(e => {
-    //   const currentQuestion = $(e.target)
-    //   const sendQuest = {
-    //     _id: currentQuestion.attr('id'),
-    //   }
-    //   socket.emit('question', sendQuest)      
-    // })
+    const socketListenUpdateRanking = () => {
+      socket.on('updateRanking', room => {
+        app.helpers.showRanking(room)
+      })
+    }
 
+    const socketSubmitAwnser = (id) => {
+      $(`.submit-awnser#${id}`).click(e => {
+        // update score
+        // emit rank table
+        let updateInfo = {
+          userId: id
+        }        
+        socket.emit('updateTeamScore', updateInfo)
+        $('.answer-team tbody').html('')
+      })
+    }
     const socketSendMessageToTeams = () => {
       $('.send-question-button').click(e => {
         const currentQuestion = $(e.target)
@@ -74,6 +83,7 @@ var app = {
 
     // socket running function
     socketSendMessageToTeams()
+    socketListenUpdateRanking()
   },
 
   game: () =>  {
@@ -116,7 +126,15 @@ var app = {
         socket.emit('receiveAnwser', teamInfo)
         $('.submit-awswer button').addClass('d-none') 
       })
+      const socketListenUpdateRanking = () => {
+        socket.on('updateRanking', room => {
+          app.helpers.showRanking(room)
+        })
+      }
 
+      
+      // socket running function
+      socketListenUpdateRanking()
     })
   },
 
@@ -178,6 +196,17 @@ var app = {
                       </div>
                   </div>`
         container.append(html)      
+    },
+    showRanking: (room) => {
+      let html = ''
+      room.connections.forEach(con => {
+        html += `<tr>
+                  <th scope="row">*</th>
+                  <td>${con.user.email}</td>
+                  <td>${con.score}</td>
+                </tr>`
+      })
+      $('.ranking tbody').html(html)
     }
   }
 };

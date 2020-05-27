@@ -29,9 +29,6 @@ block content
           //- else
           //-   h1 Không có phòng
         .col-5
-          .mb-3
-            small.text-uppercase.font-weight-bold With text
-          // Tabs with Background on Card
           .card
             .card-header
               ul.nav.nav-tabs.nav-tabs-primary(role='tablist')
@@ -51,16 +48,7 @@ block content
                         th(scope="col") #
                         th(scope="col") Đội
                         th(scope="col") Time
-                    tbody
-                      tr
-                        th(scope="row") 1
-                        td Mark
-                        td 31s
-                      tr
-                        th(scope="row") 1
-                        td Mark
-                        td 31s
-                    
+                    tbody                    
                 #link5.tab-pane.ranking
                   table.table
                     thead
@@ -69,10 +57,11 @@ block content
                         th(scope="col") Đội
                         th(scope="col") Điểm
                     tbody
-                      tr
-                        th(scope="row") 1
-                        td Mark
-                        td 91
+                      each connection in room.connections                      
+                        tr
+                          th(scope="row") *
+                          td #{connection.user.email}
+                          td #{connection.score}
 block scripts
   script.
     window.onload = function() {

@@ -6,15 +6,15 @@ const Room = require("../models/room")
 
 
 
-exports.getIndex = (req, res, next) => {  
-  Question.find()
-  .then(questions => {
-    res.render('./admin/index', {
-      pageTitle: 'Admin page',
-      questions: questions,
-      user: req.user
+exports.getIndex = (req, res, next) => {
+  Room.findById('5ec11f5f68090d33a4287d6b')
+    .then(room => {
+      res.render('./admin/index', {
+        pageTitle: 'Admin page',
+        room: room,
+        user: req.user
+      })
     })
-  })
 }
 
 exports.postIndex = (req, res, next) => {  

@@ -43,5 +43,25 @@ roomSchema.methods.addUserToRoom = function(userId) {
     })    
 }
 
+roomSchema.methods.updateUserScore = function(userId, socket) {
+  if (!userId)
+    return
+
+  const connections = [...this.connections]
+
+  connections.forEach(con => {
+    if (con.user._id.toString() === userId) {
+      con.score += 20
+    }      
+  })
+
+  this.connections = connections
+  return this.save()
+            .then(result => {
+              socket.emit('updateRanking', this)
+              socket.broadcast.to(this._id).emit('updateRanking', this)
+              console.log('broad cast:', this)
+            })
+}
 
 module.exports = mongoose.model('Room', roomSchema);
