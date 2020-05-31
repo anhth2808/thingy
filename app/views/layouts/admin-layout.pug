@@ -24,7 +24,7 @@ html(lang="en")
     nav.navbar.navbar-expand-lg.navbar-transparent(color-on-scroll='100')
       .container
         .navbar-translate
-          a.navbar-brand(href='/', rel='tooltip', title='NTU', data-placement='bottom', target='_blank')
+          a.navbar-brand(href='/admin', rel='tooltip', title='NTU', data-placement='bottom')
             span NTU
           button.navbar-toggler.navbar-toggler(type='button', data-toggle='collapse', data-target='#navigation', aria-controls='navigation-index', aria-expanded='false', aria-label='Toggle navigation')
             span.navbar-toggler-bar.bar1
@@ -40,6 +40,23 @@ html(lang="en")
                 button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navigation', aria-controls='navigation-index', aria-expanded='false', aria-label='Toggle navigation')
                   i.tim-icons.icon-simple-remove
           ul.navbar-nav
+            li.dropdown.nav-item
+              a.dropdown-toggle.nav-link(href='#', data-toggle='dropdown', aria-expanded='false')
+                i.fa.fa-cogs.d-lg-none.d-xl-none
+                |  Administration
+              .dropdown-menu.dropdown-with-icons
+                a.dropdown-item(href='https://demos.creative-tim.com/blk-design-system/docs/1.0/getting-started/overview.html')
+                  i.tim-icons.icon-paper
+                  |  Documentation
+                a.dropdown-item(href='examples/register-page.html')
+                  i.tim-icons.icon-bullet-list-67
+                  | Collections
+                a.dropdown-item(href='examples/landing-page.html')
+                  i.tim-icons.icon-image-02
+                  | Questions
+                a.dropdown-item(href='/admin/user')
+                  i.tim-icons.icon-single-02
+                  | Users
             - if (!isAuthenticated && !isAdmin) {
               li.nav-item.p-0.ml-auto
                 a.nav-link.btn.btn-default(href='/login') Đăng nhập

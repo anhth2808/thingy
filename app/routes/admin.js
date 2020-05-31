@@ -4,6 +4,7 @@ const express = require('express')
 const isAdmin = require("../middleware/is-admin")
 const adminCtrl = require('../controllers/admin')
 const collectionCtrl = require('../controllers/collection')
+const userCtrl = require('../controllers/user')
 
 const router = express.Router()
 
@@ -11,6 +12,14 @@ router.get('/', isAdmin, adminCtrl.getIndex)
 
 router.post('/', isAdmin, adminCtrl.postIndex)
 
+
+// user manager
+router.get('/user', isAdmin, userCtrl.getUserList)
+
+router.post('/user/active', isAdmin, userCtrl.postActiveUser)
+
+
+// ===================== API =================================
 
 //  question api
 router.get('/question', adminCtrl.questionList)
@@ -35,5 +44,6 @@ router.get('/collection/:collectionid', collectionCtrl.collectionReadOne)
 
 router.post('/collection', collectionCtrl.collectionCreate)
 
+router.post('/collection/:collectionid', collectionCtrl.collectionUpdateOne)
 
 module.exports = router

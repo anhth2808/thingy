@@ -2,13 +2,25 @@ const path = require("path")
 const sendJsonResponse = require('../util/Helper').sendJsonResponse
 
 const Question = require("../models/question")
+const Collection = require("../models/collection")
 const Room = require("../models/room")
 
 
 
 exports.getIndex = (req, res, next) => {
   Room.findById('5ec11f5f68090d33a4287d6b')
-    .then(room => {
+    // .populate('rounds.collectionId')
+    .populate({
+      path: 'rounds.collectionId',
+      model: 'Collection',
+      populate: {
+        path: 'questions.questionId',
+        model: 'Question'
+      }
+    })
+    .then(room => {        
+      // console.log(room)
+      console.log(room.rounds[0].collectionId.questions[0].questionId)
       res.render('./admin/index', {
         pageTitle: 'Admin page',
         room: room,
@@ -179,7 +191,8 @@ exports.roomCreate = (req, res, next) => {
   const title = req.body.title
 
   const room = new Room({
-    title: title
+    title: title,
+    rounds: []
   })
 
   room.save()

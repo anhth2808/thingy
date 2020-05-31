@@ -1,0 +1,39 @@
+extends ../layouts/admin-layout.pug
+
+include ../_includes/sharedHTMLfunctions.pug
+
+block styles
+  style.
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+block content
+  .section.section-tabs
+    .container
+      table.table
+        thead
+          tr
+            th(scope="col") #
+            th(scope="col") Người dùng
+            th(scope="col") Tình trạng
+            th(scope="col") Action
+        tbody
+          each user in users
+            form(action="/admin/user/active", method="post")
+              input(name="userId", type="hidden", value=user._id)
+              tr
+                th(scope="row") *
+                td #{user.email}
+                - if (user.status === 1)
+                    td
+                      input(name="status", class="form-check-input", value="1",type="checkbox", checked="true")
+                - else
+                    td
+                      input(name="status", class="form-check-input", type="checkbox")
+                th(scope="row")
+                  a(href="hihi", class="")
+                    button(type="submit").btn.btn-link.btn-success Cập nhật
+      
+block scripts
+  //- script.
+  //-   window.onload = function() {
+  //-      $(function(){app.admin()});
+  //-   }

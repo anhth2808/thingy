@@ -1,0 +1,10 @@
+mixin outputCollectionId(room)
+  - var id = ""
+  - if (room) {
+    - room.rounds.forEach(e => {
+        - if (e.isCurrentRound) {
+          - id = e._id
+        -}
+    - })
+  - }
+  - return id  

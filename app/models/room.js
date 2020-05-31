@@ -11,10 +11,13 @@ const roomSchema = new Schema({
     score: {type: Number, default: 0} 
   }],
   isOpen: { type: Boolean, default: true },
-  rounds: { type: Number, default: DEFAULT_ROUNDS },
-  currentRound: { type: Number, default: 0 },
+  rounds: [{
+    roundNumber: {type: Number, default: 1},
+    isCurrentRound: {type: Boolean},
+    collectionId: {type: Schema.Types.ObjectId, require: true, ref: "Collection"}
+  }],
   createdAt: { type: Date, default: Date.now },
-})
+}) 
 
 
 // user_id

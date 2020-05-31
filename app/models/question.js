@@ -9,6 +9,7 @@ const questionSchema = new Schema({
   description: {type: String},
   time: {type: Number, default: 15},
   answer: { type: String},
+  score: { type: Number, default: 0},
   // options: { type: [{ val: String, text: String, _id: { id: false } }] },
   createdAt: { type: Date, default: Date.now },
 })

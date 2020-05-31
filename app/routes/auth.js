@@ -9,10 +9,10 @@ const router = express.Router()
 router.get("/login", authCtrl.getLogin)
 router.post("/login", 
   [
-    check("email")
-      .isEmail()
-      .withMessage("Vui lòng nhập email hợp lệ.")
-      .normalizeEmail(),
+    // check("email")
+    //   .isEmail()
+    //   .withMessage("Vui lòng nhập email hợp lệ.")
+    //   .normalizeEmail(),
     body("password", "Vui lòng nhập mật khẩu chỉ có số và văn bản và ít nhất 5 ký tự.")
       .isLength({min: 5})
       .isAlphanumeric()
