@@ -4,6 +4,7 @@ const express = require('express')
 const isAdmin = require("../middleware/is-admin")
 const adminCtrl = require('../controllers/admin')
 const collectionCtrl = require('../controllers/collection')
+const questionCtrl = require('../controllers/question')
 const userCtrl = require('../controllers/user')
 
 const router = express.Router()
@@ -18,15 +19,26 @@ router.get('/user', isAdmin, userCtrl.getUserList)
 
 router.post('/user/active', isAdmin, userCtrl.postActiveUser)
 
+// question manager
+router.get('/question', isAdmin, questionCtrl.getQuestions)
+
+router.get('/add-question', isAdmin, questionCtrl.getAddQuestion)
+
+router.post('/add-question', isAdmin, questionCtrl.postAddQuestion)
+
+
+router.get('/edit-question/:questionId', isAdmin, questionCtrl.getEditQuestion)
+
+router.post('/edit-question', isAdmin, questionCtrl.postEditQuestion)
 
 // ===================== API =================================
 
 //  question api
-router.get('/question', adminCtrl.questionList)
+router.get('/api/question', adminCtrl.questionList)
 
-router.get('/question/:questionid', adminCtrl.quesitonReadOne)
+router.get('/api/question/:questionid', adminCtrl.quesitonReadOne)
 
-router.post('/question', adminCtrl.questionCreate)
+router.post('/api/question', adminCtrl.questionCreate)
 
 router.put('/api/question/:questionid', adminCtrl.questionUpdateOne)
 

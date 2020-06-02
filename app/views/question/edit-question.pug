@@ -1,0 +1,42 @@
+extends ../layouts/admin-layout.pug
+
+include ../_includes/sharedHTMLfunctions.pug
+
+block styles
+  script(src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js")
+block content
+  section.section
+    .container
+      .row
+        .col-md-6
+          .card.card-plain
+            .card-body
+              form(action="/admin/edit-question", method="post")
+                input(type="hidden", name="questionId", value=question._id)        
+                .row
+                  .col-md-12
+                    .form-group
+                      label Tựa đề#{collectionId}
+                      input.form-control(type='text', name="title", value=question.title)
+                .row
+                  .col-md-12
+                    .form-group
+                      label Nội Dung
+                      textarea#description(name="description", cols="30", rows="10", value=question.description)
+                .row
+                  .col-md-12
+                    .form-group
+                      label Số điểm
+                      input.form-control(type='text', name="score", question.score)
+                .row
+                  .col-md-12
+                    .form-group
+                      label Đáp án
+                      input.form-control(type='text', name="answer", question.anser)
+                .row
+                  .col-md-12
+                    button.btn.btn-primary(type='submit') Cập nhật
+      
+block scripts
+  script.
+    CKEDITOR.replace( 'description' )

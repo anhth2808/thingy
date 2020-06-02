@@ -1,0 +1,33 @@
+extends ../layouts/admin-layout.pug
+
+include ../_includes/sharedHTMLfunctions.pug
+
+block styles
+  style.
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+block content
+  .section.section-tabs
+    .container
+      table.table
+        thead
+          tr
+            th(scope="col") #
+            th(scope="col") Tựa đề
+            th(scope="col") Điểm
+            th(scope="col")
+        tbody
+          each question in questions
+            tr
+              th(scope="row") *
+              td
+                a(href="/admin/edit-question/" + question._id)  #{question.title}
+              td #{question.score}        
+              td(scope="row")
+                a(href="hihi", class="")
+                  button(type="submit").btn.btn-link.btn-success Cập nhật
+      
+block scripts
+  //- script.
+  //-   window.onload = function() {
+  //-      $(function(){app.admin()});
+  //-   }
