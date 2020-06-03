@@ -23,11 +23,12 @@ block content
                 a(href="/admin/edit-question/" + question._id)  #{question.title}
               td #{question.score}        
               td(scope="row")
-                a(href="hihi", class="")
-                  button(type="submit").btn.btn-link.btn-success Cập nhật
+                //- a(href="/admin/delete-quesiton/", class="")
+                button(type="submit", data-id=question._id).delete-btn.btn.btn-link.btn-success Xóa
       
 block scripts
-  //- script.
-  //-   window.onload = function() {
-  //-      $(function(){app.admin()});
-  //-   }
+  script(src="/assets/js/admin.js")
+  script.
+    window.onload = function() {
+       $(function(){admin.question()});
+    }

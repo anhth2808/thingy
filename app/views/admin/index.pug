@@ -10,13 +10,14 @@ block content
   input(type="hidden", value=user._id, class="user-id")
   .section.section-tabs
     .container
+      .title
+        h3.mb-3 Question List
+        // Button trigger modal
+        button.btn.btn-primary(type='button', data-toggle='modal', data-target='#exampleModal')
+          | Thêm câu hỏi
       .row
         .col-7.question-list
-          .title
-            h3.mb-3 Question List
-            // Button trigger modal
-            button.btn.btn-primary(type='button', data-toggle='modal', data-target='#exampleModal')
-              | Thêm câu hỏi
+          
           .row.collection-container
             each round in room.rounds
               - if (round.isCurrentRound === true) {                  
@@ -27,9 +28,7 @@ block content
                         .card-body
                           .tab-content
                             .tab-question
-                              p
-                              p
-                              p
+                              p #{question.questionId.title}
                               button.btn.btn-primary(id=question.questionId._id) Chi tiết
                               button.btn.btn-primary.send-question-button(id=question.questionId._id) Gửi câu hỏi
               - }

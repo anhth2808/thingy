@@ -148,8 +148,27 @@ exports.questionDeleteOne = (req, res, next) => {
         })
         return
       }
+
       Question.deleteOne({
         _id: questionId        
+      })
+      .then(() =>{
+        Collection.find({
+          'questions.questionId': question
+        })
+        .then(e => {
+          e.forEach(col => {            
+            Collection.findById(col._id)
+              .then(col2 => {
+                let a = col2.questions.filter(el => {
+                  return el.questionId.toString() !== question._id.toString()
+                })
+                col2.questions = a;
+                console.log(col2)
+                col2.save()
+              })
+          })        
+        })
       })
       .then(() => {
         sendJsonResponse(res, 204, null);

@@ -78,7 +78,7 @@ var app = {
     }
     
     // AJAX running function
-    // getCollection()
+    getCollection()
 
 
     // socket running function
