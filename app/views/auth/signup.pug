@@ -11,14 +11,14 @@ block content
         - }
         form.login-form(action="/signup", method="POST", novalidate)
           input(type="hidden", value=csrfToken, name="_csrf")
-          .form-control 
+          .login-control
             label(for="email") Email
-            input(type="text", name="email", value=oldInput.email, class=(validationErrors.find(e => e.param === "email")) ? "invalid" : "")#email
-          .form-control 
+            input.form-control(type="text", name="email", value=oldInput.email, class=(validationErrors.find(e => e.param === "email")) ? "invalid" : "")#email
+          .login-control
             label(for="password") Mật khẩu
-            input(type="password", name="password", value=oldInput.password, class=(validationErrors.find(e => e.param === "password")) ? "invalid" : "")#password
-          .form-control 
+            input.form-control(type="password", name="password", value=oldInput.password, class=(validationErrors.find(e => e.param === "password")) ? "invalid" : "")#password
+          .login-control
             label(for="confirmPassword") Nhập lại mật khẩu
-            input(type="password", name="confirmPassword", value=oldInput.confirmPassword, , class=(validationErrors.find(e => e.param === "confirmPassword")) ? "invalid" : "")#confirmPassword
+            input.form-control(type="password", name="confirmPassword", value=oldInput.confirmPassword, , class=(validationErrors.find(e => e.param === "confirmPassword")) ? "invalid" : "")#confirmPassword
           .centered
             button.btn(type="submit") Đăng ký

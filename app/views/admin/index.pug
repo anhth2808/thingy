@@ -3,6 +3,7 @@ extends ../layouts/admin-layout.pug
 include ../_includes/sharedHTMLfunctions.pug
 
 block styles
+  script(src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js")
   style.
     * { margin: 0; padding: 0; box-sizing: border-box; }
 block content
@@ -81,18 +82,18 @@ block content
             .row
               .col-md-12
                 .form-group
-                  label Tựa đề#{collectionId}
+                  label Tựa đề
                   input.form-control(type='text', class="text-dark", name="title")
             .row
               .col-md-12
                 .form-group
                   label Nội Dung
-                  input.form-control(type='text', class="text-dark", name="description")
+                  textarea#description.form-control(type='text', class="text-dark", name="description")
             .row
               .col-md-12
                 .form-group
                   label Số điểm
-                  input.form-control(type='text', class="text-dark", name="score")
+                  input.form-control(type='number', class="text-dark", name="score")
             .row
               .col-md-12
                 .form-group
@@ -106,3 +107,5 @@ block scripts
     window.onload = function() {
        $(function(){app.admin()});
     }
+  script.
+    CKEDITOR.replace( 'description' )

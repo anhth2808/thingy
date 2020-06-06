@@ -11,13 +11,12 @@ block content
         - }
         form.login-form(action="/login", method="POST")
           input(type="hidden", value=csrfToken, name="_csrf")
-          .form-control
+          .form-group
             label(for="email") Email
-            input(type="text", name="email", value=oldInput.email, class=( validationErrors.find(e => e.param === "email") ) ? "invalid" : "")#email
-          .form-control 
+            input.form-control(type="text", name="email", value=oldInput.email, class=( validationErrors.find(e => e.param === "email") ) ? "invalid" : "")#email
+          .form-group 
             label(for="password") Mật khẩu
-            input(type="password", name="password", value=oldInput.password, class=( validationErrors.find(e => e.param === "password") ) ? "invalid" : "")#password
-          
+            input.form-control(type="password", name="password", value=oldInput.password, class=( validationErrors.find(e => e.param === "password") ) ? "invalid" : "")#password          
           .login-control
             button.btn(type="submit") Đăng nhập
             a(href="/reset") Quên mật khẩu

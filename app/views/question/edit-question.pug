@@ -27,16 +27,16 @@ block content
                   .col-md-12
                     .form-group
                       label Số điểm
-                      input.form-control(type='text', name="score", question.score)
+                      input.form-control(type='number', name="score", value=question.score)
                 .row
                   .col-md-12
                     .form-group
                       label Đáp án
-                      input.form-control(type='text', name="answer", question.anser)
+                      input.form-control(type='text', name="answer", value=question.anser)
                 .row
                   .col-md-12
                     button.btn.btn-primary(type='submit') Cập nhật
       
 block scripts
   script.
-    CKEDITOR.replace( 'description' )
+    CKEDITOR.replace( 'description' ).setData(!{JSON.stringify(question.description)} )
