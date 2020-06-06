@@ -18,14 +18,15 @@ var app = {
 
     // get team anwser
     socket.on('adminAnwser', team => {
-      const html = `<tr>
+      const html = `
+                    <tr>
                       <th scope="row">*</th>
                       <td>${team.userName}</td>
                       <td><button id="${team.userId}" class="btn submit-awnser btn-link btn-success">Success&nbsp;<i class="tim-icons icon-spaceship"></i></button></td>
                     </tr>`
       $('.answer-team tbody')
         .append(html)
-      socketSubmitAwnser(team.userId)
+      socketSubmitAwnser(team)
     })
 
     const socketListenUpdateRanking = () => {
@@ -34,17 +35,19 @@ var app = {
       })
     }
 
-    const socketSubmitAwnser = (id) => {
-      $(`.submit-awnser#${id}`).click(e => {
+    const socketSubmitAwnser = (team) => {
+      $(`.submit-awnser#${team.userId}`).click(e => {
         // update score
         // emit rank table
         let updateInfo = {
-          userId: id
-        }        
+          userId: team.userId,
+          questionId: team.questionId
+        }
         socket.emit('updateTeamScore', updateInfo)
         $('.answer-team tbody').html('')
       })
     }
+
     const socketSendMessageToTeams = () => {
       $('.send-question-button').click(e => {
         const currentQuestion = $(e.target)
@@ -102,8 +105,8 @@ var app = {
       
       socket.on('newQuestion', (question) => {
         $('.game-screen ')
-          .html(question)
-        
+          .html(question.title)
+        app.helpers.showQuestionOnScreen(question)
       })
       
       socket.on('timer', (timeObj) => {        
@@ -119,9 +122,11 @@ var app = {
       $('.submit-awswer button').click(() => {
         const userId = $('.user-id').val()
         const userName = $('.user-name').val()
+        const questionId = $('.question-id').val()
         const teamInfo = {
           userId: userId,
-          userName: userName
+          userName: userName,
+          questionId: questionId
         }
         socket.emit('receiveAnwser', teamInfo)
         $('.submit-awswer button').addClass('d-none') 
@@ -207,6 +212,16 @@ var app = {
                 </tr>`
       })
       $('.ranking tbody').html(html)
+    },
+    showQuestionOnScreen: (question) => {
+      let html = ''
+      html += `
+        <input class="question-id" type="hidden"" value="${question._id}">
+        ${question.description}
+      `
+      $('.game-screen ').html(html)
+
+      console.log(question)
     }
   }
 };

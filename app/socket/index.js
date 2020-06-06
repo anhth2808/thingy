@@ -49,7 +49,7 @@ const socketio = (io) => {
     socket.on('updateTeamScore', (updateInfo) => {
       Room.findById(DEFAULT_ROOM_ID)
         .then(room => {
-          room.updateUserScore(updateInfo.userId, socket)
+          room.updateUserScore(updateInfo, socket)
         })
     })
 
@@ -66,7 +66,7 @@ const sendQuestion = (socket, roomId, questionId) => {
   .then(question => {
     timer(socket, roomId, QUESTION_APPEAR_TIME, () => {
       // socket.emit('newQuestion', question.title);
-      socket.broadcast.to(roomId).emit('newQuestion', question.title);
+      socket.broadcast.to(roomId).emit('newQuestion', question);
     })
   })
 }

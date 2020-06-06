@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const User = require('./user')
+const Question = require('./question')
 var DEFAULT_ROUNDS = 5;
 
 const Schema = mongoose.Schema;
@@ -46,25 +47,31 @@ roomSchema.methods.addUserToRoom = function(userId) {
     })    
 }
 
-roomSchema.methods.updateUserScore = function(userId, socket) {
-  if (!userId)
+roomSchema.methods.updateUserScore = function(updateInfo, socket) {
+  if (!updateInfo.userId)
     return
 
   const connections = [...this.connections]
-
-  connections.forEach(con => {
-    if (con.user._id.toString() === userId) {
-      con.score += 20
-    }      
-  })
-
-  this.connections = connections
-  return this.save()
-            .then(result => {
-              socket.emit('updateRanking', this)
-              socket.broadcast.to(this._id).emit('updateRanking', this)
-              console.log('broad cast:', this)
-            })
+  console.log("questionId", updateInfo.questionId)
+  Question.findById(updateInfo.questionId)
+    .then(question => {
+      console.log(question)
+      if (question) {
+        connections.forEach(con => {
+          if (con.user._id.toString() === updateInfo.userId) {            
+            console.log(con.score, question.score, "compare")
+            con.score += question.score
+          }      
+        })  
+      }
+      this.connections = connections
+      return this.save()
+                .then(result => {
+                  socket.emit('updateRanking', this)
+                  socket.broadcast.to(this._id).emit('updateRanking', this)
+                  console.log('broad cast:', this)
+                })   
+    })  
 }
 
 module.exports = mongoose.model('Room', roomSchema);
