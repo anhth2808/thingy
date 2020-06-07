@@ -19,7 +19,10 @@ exports.getUserList = (req, res, next) => {
 
 exports.postActiveUser = (req, res, next) => {
   const status = req.body.status
+  const admin = req.body.admin
   const userId = req.body.userId
+
+  console.log(admin)
 
   User.findById(userId)
     .then(user => {
@@ -28,6 +31,8 @@ exports.postActiveUser = (req, res, next) => {
       } else {
         user.status = 2
       }
+      admin ? user.admin = true : user.admin = false
+
       user.save()
         .then(result => {
           console.log(result)
