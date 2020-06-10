@@ -57,11 +57,11 @@ var app = {
         socket.emit('question', sendQuest)      
       })
     }
-
+    
     // AJAX Function
     const getCollection = (collectionId) => {
       // const API = HOST + `/collection/${collectionId}`
-      const API = HOST + `/collection/5eca411c744ee9671cdea6fb`
+      const API = HOST + `/collection/${collectionId}`
       
       fetch(API, {
         method: "GET",
@@ -70,20 +70,48 @@ var app = {
         return result.json()
       })
       .then(data => {
-        data.questions.forEach(question => {
-          app.helpers.showCollectionQuestion(question)
-          socketSendMessageToTeams()
-        })
+        // data.questions.forEach(question => {
+                   
+        // })
+        app.helpers.showCollectionQuestion(data.questions) 
+        socketSendMessageToTeams()
       })
       .catch(err => {
         console.log(err)
       });      
     }
     
+    const getCollectionListForSelect = () => {
+      // const API = HOST + `/collection/${collectionId}`
+      const API = HOST + `/collection`
+      
+      fetch(API, {
+        method: "GET",
+      })
+      .then(result => {
+        return result.json()
+      })
+      .then(data => {
+        app.helpers.showCollectionForSelect(data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    }
+    const actionCollectionSelected = () => {
+      $('select.collection-select').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+        let collectionId = $('select.collection-select').selectpicker('val')
+        getCollection(collectionId)
+      })
+    }
+
+    
+
     // AJAX running function
     // getCollection()
-
-
+    // getCollectionListForSelect()
+    actionCollectionSelected()
+    console.log("run")
     // socket running function
     socketSendMessageToTeams()
     socketListenUpdateRanking()
@@ -183,24 +211,25 @@ var app = {
                     </div>`
       tabRoom.append(html)
     },
-    showCollectionQuestion: (question) => {
+    showCollectionQuestion: (questions) => {
       const container = $('.collection-container')
-      const html = `<div class="col-md-12 ml-auto col-xl-12 mr-auto">
-                      <div class="card">
-                          <div class="card-body">
-                              <div class="tab-content">
-                                  <div class="tab-question">
-                                    <p></p>
-                                    <p></p>
-                                    <p></p>
-                                    <button id="${question.questionId._id}" class="btn btn-primary ">Chi tiết</button>
-                                    <button id="${question.questionId._id}" class="btn btn-primary send-question-button">Gửi câu hỏi</button>                                    
-                                  </div>
-                              </div>
-                          </div>
+      let html = ``
+      questions.forEach(question => {
+        html += `<div class="col-md-12 ml-auto col-xl-12 mr-auto">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="tab-content">
+                        <div class="tab-question">
+                          <p>${question.questionId.title}</p>
+                          <button id="${question.questionId._id}" class="btn btn-primary ">Chi tiết</button>
+                          <button id="${question.questionId._id}" class="btn btn-primary send-question-button">Gửi câu hỏi</button>                                    
+                        </div>
                       </div>
-                  </div>`
-        container.append(html)      
+                    </div>
+                  </div>
+                </div>`
+      })
+      container.html(html)      
     },
     showRanking: (room) => {
       let html = ''
@@ -222,6 +251,15 @@ var app = {
       $('.game-screen ').html(html)
 
       console.log(question)
+    },
+    showCollectionForSelect: (collections) => {
+      let html = ``
+      collections.forEach(e => {
+        html += `
+        <option>${e.title}</option>
+        `
+      })
+      $('.collection-select').html(html)
     }
   }
 };

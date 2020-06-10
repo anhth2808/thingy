@@ -4,8 +4,26 @@ const sendJsonResponse = require('../util/Helper').sendJsonResponse
 const Question = require("../models/question")
 const Collection = require("../models/collection")
 
+exports.getCollections = (req, res, next) => {  
+  Collection.find()
+  .then(collections => {
+    if (!collections) {
+      //
+    }
+    res.render('./collection/index', {
+      pageTitle: 'Collection list',
+      collections: collections
+    })
 
+  })
+  .catch(err => {
+    const error = new Error(err)
+    error.httpStatusCode = 500
+    return next(error)
+  })
+}
 
+// api
 
 exports.collectionList = (req, res, next) => {
   Collection.find()

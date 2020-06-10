@@ -8,25 +8,35 @@ const Room = require("../models/room")
 
 
 exports.getIndex = (req, res, next) => {
-  Room.findById('5ec11f5f68090d33a4287d6b')
-    // .populate('rounds.collectionId')
-    .populate({
-      path: 'rounds.collectionId',
-      model: 'Collection',
-      populate: {
-        path: 'questions.questionId',
-        model: 'Question'
-      }
-    })
-    .then(room => {        
-      // console.log(room)
-      console.log(room.rounds[0].collectionId.questions[0].questionId)
-      res.render('./admin/index', {
-        pageTitle: 'Admin page',
-        room: room,
-        user: req.user
+  Collection.find()
+    .then(collections => {
+      Room.findById('5ec11f5f68090d33a4287d6b')
+      // .populate('rounds.collectionId')
+      .populate({
+        path: 'rounds.collectionId',
+        model: 'Collection',
+        populate: {
+          path: 'questions.questionId',
+          model: 'Question'
+        }
+      })
+      .then(room => {        
+        // console.log(room)
+        console.log(room.rounds[0].collectionId.questions[0].questionId)
+        res.render('./admin/index', {
+          pageTitle: 'Admin page',
+          room: room,
+          user: req.user,
+          collections: collections
+        })
       })
     })
+    .catch(err => {
+      const error = new Error(err)
+      error.httpStatusCode = 500
+      return next(error)
+    })
+  
 }
 
 exports.postIndex = (req, res, next) => {  

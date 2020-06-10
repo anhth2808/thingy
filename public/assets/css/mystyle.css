@@ -45,3 +45,9 @@
 .space-50 {
   height: 50px;
 }
+
+
+/* custom bootstrap-select css */
+.bs-searchbox input.form-control {
+  color: #525f7f
+}
