@@ -70,9 +70,6 @@ var app = {
         return result.json()
       })
       .then(data => {
-        // data.questions.forEach(question => {
-                   
-        // })
         app.helpers.showCollectionQuestion(data.questions) 
         socketSendMessageToTeams()
       })
@@ -98,10 +95,14 @@ var app = {
         console.log(err)
       })
     }
+
     const actionCollectionSelected = () => {
       $('select.collection-select').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
         let collectionId = $('select.collection-select').selectpicker('val')
+        let roomId = $('.room-id').val()
         getCollection(collectionId)
+        app.helpers.changeCollectionId(collectionId)
+        app.helpers.changeRoundCollection(collectionId, roomId)
       })
     }
 
@@ -197,6 +198,7 @@ var app = {
   },
 
   helpers: {
+    // render helper
     showRoom: (room) => {
       const tabRoom = $('.tab-room')
       const html = `<div class="col-md-12 ml-auto col-xl-12 mr-auto">
@@ -260,6 +262,18 @@ var app = {
         `
       })
       $('.collection-select').html(html)
+    },
+    changeCollectionId: (collectionId) => {
+      const form = $('#exampleModal form')
+      const temp = form.attr('action')
+      const lastIndex = temp.lastIndexOf("/")
+      const path = temp.slice(0,lastIndex+1)
+      form.attr('action', path + collectionId)
+    },    
+    // handle helper
+    changeRoundCollection: (collectionId, roomId) => {
+      //
+      console.log(collectionId, roomId)
     }
   }
 };

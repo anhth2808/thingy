@@ -235,3 +235,66 @@ exports.roomCreate = (req, res, next) => {
     })
   
 }
+
+exports.roomChangeCollection = (req, res, next) => {
+  if (!req.params.roomid) {
+    sendJsonResponse(res, 404, {
+        'message': 'Not found, roomid is required'
+    })
+    return
+  }
+  console.log(req.body)
+  if (!req.body.collectionid) {
+    sendJsonResponse(res, 404, {
+        'message': 'Not found, collectionid is required'
+    })
+    return
+  }
+
+  Room.findById(req.params.roomid)
+    .then(room => {
+      if (!room) {
+        sendJsonResponse(res, 404, {
+          'message': 'roomid not found'
+        })
+        return 
+      }
+      return room
+    })
+    .then(room => {
+      Collection.findById(req.body.collectionid)
+        .then(collection => {
+          if (!collection) {
+            sendJsonResponse(res, 404, {
+              'message': 'collectionid not found'
+            })
+            return 
+          }
+          let tempRounds = [...room.rounds]
+          tempRounds = tempRounds.filter(round => {
+            return round.isCurrentRound === true
+          })
+
+          if (tempRounds.length > 0) {
+            tempRounds[0].collectionId = collection
+          }
+          console.log('room1:', room.rounds[0].collectionId)
+          room.rounds = tempRounds
+
+          room.save()
+            .then(e => {
+              sendJsonResponse(res, 202, {
+                'message': 'success'
+              })
+            })
+            .catch(err => {
+              sendJsonResponse(res, 404, {
+                'message': err
+              })
+              const error = new Error(err)
+              error.httpStatusCode = 500
+              return next(error)           
+            })
+        })
+    })
+}

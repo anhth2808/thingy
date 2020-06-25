@@ -49,6 +49,8 @@ router.get('/room', adminCtrl.roomList)
 
 router.post('/room', adminCtrl.roomCreate)
 
+router.post('/room/:roomid/changecollection', adminCtrl.roomChangeCollection)
+
 // collection api
 router.get('/collection', collectionCtrl.collectionList)
 

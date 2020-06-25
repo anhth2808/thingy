@@ -46,6 +46,10 @@
   height: 50px;
 }
 
+ /* custom bootstrap modal */
+ #exampleModal .modal-dialog {
+  transform: translate(0, 5%);
+ }
 
 /* custom bootstrap-select css */
 .bs-searchbox input.form-control {
