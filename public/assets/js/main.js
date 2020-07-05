@@ -22,7 +22,7 @@ var app = {
                     <tr>
                       <th scope="row">*</th>
                       <td>${team.userName}</td>
-                      <td><button id="${team.userId}" class="btn submit-awnser btn-link btn-success">Success&nbsp;<i class="tim-icons icon-spaceship"></i></button></td>
+                      <td><button id="${team.userId}" class="btn submit-awnser btn-link btn-success">Ghi diểm&nbsp;&nbsp;&nbsp;<i class="tim-icons icon-spaceship"></i></button></td>
                     </tr>`
       $('.answer-team tbody')
         .append(html)
@@ -251,7 +251,7 @@ var app = {
         ${question.description}
       `
       $('.game-screen ').html(html)
-
+      $('.question-title').html(`<h3>${question.title}</h3>`)
       console.log(question)
     },
     showCollectionForSelect: (collections) => {

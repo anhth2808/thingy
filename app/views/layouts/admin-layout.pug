@@ -47,17 +47,17 @@ html(lang="en")
             li.dropdown.nav-item
               a.dropdown-toggle.nav-link(href='#', data-toggle='dropdown', aria-expanded='false')
                 i.fa.fa-cogs.d-lg-none.d-xl-none
-                |  Administration
+                |  Quản lý
               .dropdown-menu.dropdown-with-icons
                 a.dropdown-item(href='examples/register-page.html')
                   i.tim-icons.icon-bullet-list-67
                   | Collections
                 a.dropdown-item(href='/admin/question')
                   i.tim-icons.icon-paper
-                  | Questions
+                  | Câu hỏi
                 a.dropdown-item(href='/admin/user')
                   i.tim-icons.icon-single-02
-                  | Users
+                  | Tài khoản
             - if (!isAuthenticated && !isAdmin) {
               li.nav-item.p-0.ml-auto
                 a.nav-link.btn.btn-default(href='/login') Đăng nhập
@@ -65,7 +65,7 @@ html(lang="en")
               li.nav-item.p-0.ml-auto
                 form(action="/logout", method="post")
                   button.nav-link.btn.btn-default(type="submit")
-                    |  Logout
+                    |  Đăng xuất
             - }
               
     .wrapper

@@ -22,7 +22,6 @@ exports.getIndex = (req, res, next) => {
       })
       .then(room => {        
         // console.log(room)
-        console.log(room.rounds[0].collectionId.questions[0].questionId)
         res.render('./admin/index', {
           pageTitle: 'Admin page',
           room: room,

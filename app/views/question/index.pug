@@ -8,6 +8,10 @@ block styles
 block content
   .section.section-tabs
     .container
+      form
+        label.text-white(for="search-input") Tìm kiếm:
+        input.form-control#search-input(type="text", placelder="Tìm kiếm")
+    .container
       a(href="/admin/add-question")
         button.delete-btn.btn.btn-link.btn-success Tạo câu hỏi
       table.table

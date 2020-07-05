@@ -145,3 +145,48 @@ exports.collectionUpdateOne = (req, res, next) => {
       return
     })
 }
+
+exports.collectionRemoveQuestion = (req, res, next) => {
+  const collectionid = req.params.collectionid
+  const questionid = req.params.questionid
+  Collection.findById(collectionid)
+    .populate('questions.questionId')
+    .then(collection => {
+      if (!collection) {
+        sendJsonResponse(res, 404, {
+          "message": "Not found"
+        })
+        return
+      }
+      let questionsTemp = [...collection.questions]
+      console.log(questionsTemp.length)
+      
+      questionsTemp.splice(questionsTemp.findIndex(function(i){
+          return i.questionId._id === questionid;
+      }), 1);
+
+      questionsTemp.filter((v, i, arr)=> {
+        return v.questionId._id !== questionid
+      })
+      console.log(questionsTemp.length)
+      
+      collection.questions = questionsTemp
+      
+      // collection.save()
+      //   .then(result => {
+      //     console.log(result)
+      //     sendJsonResponse(res, 200, collection)
+      //   })
+      //   .catch(err => {
+      //     const error = new Error(err)
+      //       error.httpStatusCode = 500
+      //       return next(error)
+      //   })
+      sendJsonResponse(res, 200, collection)
+    })
+    .catch(err => {
+      const error = new Error(err)
+        error.httpStatusCode = 500
+        return next(error)
+    })
+}

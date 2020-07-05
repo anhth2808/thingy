@@ -2,7 +2,9 @@
   min-height: calc(100vh - 140px);
   border: 1px solid red;
 }
-
+.mod-game .question-title{
+  padding-right: 60px;
+}
 .timer {
   position: absolute;
   top: 0;

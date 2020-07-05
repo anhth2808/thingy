@@ -21,7 +21,7 @@ block content
       .title
         .row
           .col-7          
-            h3.mb-3 Question List
+            h3.mb-3 Danh sách câu hỏi
             select.collection-select.selectpicker(data-live-search='true')
               each collection in collections
                 option(data-content=collection.title) #{collection._id}
@@ -30,9 +30,9 @@ block content
               | Thêm câu hỏi
           .col-5
             .room-actions
-              h3.mb-3 Room actions
-              button.btn.btn-danger.btn-simple.btn-round Clear Room
-              button.btn.btn-info.btn-simple.btn-round Round tiếp theo
+              h3.mb-3 Thiết lập phòng
+              button.btn.btn-danger.btn-simple.btn-round Tạo lại
+              button.btn.btn-info.btn-simple.btn-round Vòng tiếp theo
       .row
         .col-7.question-list
           
@@ -69,7 +69,7 @@ block content
                       tr
                         th(scope="col") #
                         th(scope="col") Đội
-                        th(scope="col") Time
+                        //- th(scope="col") Ghi điểm
                     tbody                    
                 #link5.tab-pane.ranking
                   table.table

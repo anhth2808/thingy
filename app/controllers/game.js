@@ -1,11 +1,15 @@
 const path = require("path")
 
 const Room = require('../models/room')
+const user = require("../models/user")
 
 
 exports.getRooms = (req, res, next) => {
   Room.find()
   .then(rooms => {
+    if (req.user.admin)
+      return res.redirect('/admin')
+    
     res.render('./game/room', {
       pageTitle: 'Room list',
       rooms: rooms

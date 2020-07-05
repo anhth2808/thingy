@@ -60,4 +60,6 @@ router.post('/collection', collectionCtrl.collectionCreate)
 
 router.post('/collection/:collectionid', collectionCtrl.collectionUpdateOne)
 
+router.get('/collection/:collectionid/remove/:questionid', collectionCtrl.collectionRemoveQuestion)
+
 module.exports = router
