@@ -24,7 +24,11 @@ block content
             h3.mb-3 Danh sách câu hỏi
             select.collection-select.selectpicker(data-live-search='true')
               each collection in collections
-                option(data-content=collection.title) #{collection._id}
+                - if (collection._id.equals(collectionId)) {
+                  option(data-content=collection.title, selected=true) #{collection._id}
+                - } else {
+                  option(data-content=collection.title) #{collection._id}
+                - }
             // Button trigger modal
             button.btn.btn-info.d-block(type='button', data-toggle='modal', data-target='#exampleModal', title="Thêm câu hỏi vào bộ câu hỏi")
               | Thêm câu hỏi

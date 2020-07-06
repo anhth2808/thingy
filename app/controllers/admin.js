@@ -242,8 +242,7 @@ exports.roomChangeCollection = (req, res, next) => {
     })
     return
   }
-  console.log(req.body)
-  if (!req.body.collectionid) {
+  if (!req.params.collectionid) {
     sendJsonResponse(res, 404, {
         'message': 'Not found, collectionid is required'
     })
@@ -261,7 +260,7 @@ exports.roomChangeCollection = (req, res, next) => {
       return room
     })
     .then(room => {
-      Collection.findById(req.body.collectionid)
+      Collection.findById(req.params.collectionid)
         .then(collection => {
           if (!collection) {
             sendJsonResponse(res, 404, {

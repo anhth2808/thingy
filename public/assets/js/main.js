@@ -274,6 +274,21 @@ var app = {
     changeRoundCollection: (collectionId, roomId) => {
       //
       console.log(collectionId, roomId)
+      const API = HOST + `/room/${roomId}/changecollection/${collectionId}` 
+
+      fetch(API, {
+        method: "GET",       
+      })
+      .then(result => {
+        return result.json()
+      })
+      .then(data => {
+        console.log(data)
+      })
+      .catch(err => {
+        console.log(err)
+      });
+
     }
   }
 };
