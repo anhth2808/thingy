@@ -10,9 +10,9 @@ block content
     .container
       form
         label.text-white(for="search-input") Tìm kiếm:
-        input.form-control#search-input(type="text", placelder="Tìm kiếm")
+        input.form-control#search-input(type="text", onkeyup="myFunction()", placelder="Tìm kiếm")
     .container
-      table.table
+      table#table.table
         thead
           tr
             th(scope="col") #
@@ -22,7 +22,7 @@ block content
         tbody
           each report in reports
             tr
-              th(scope="row") *
+              td *
               td
                 a(href="/admin/report/" + report._id)  #{report.roomTitle}
               td 
@@ -34,4 +34,24 @@ block scripts
   script.
     window.onload = function() {
        $(function(){admin.question()});
+    }
+  script.
+    function myFunction() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("search-input");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("table");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[1];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          console.log(txtValue)
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }       
+      }
     }

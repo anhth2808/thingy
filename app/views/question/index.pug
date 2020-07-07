@@ -10,11 +10,11 @@ block content
     .container
       form
         label.text-white(for="search-input") Tìm kiếm:
-        input.form-control#search-input(type="text", placelder="Tìm kiếm")
+        input.form-control#search-input(type="text", onkeyup="myFunction()", placelder="Tìm kiếm")
     .container
       a(href="/admin/add-question")
         button.delete-btn.btn.btn-link.btn-success Tạo câu hỏi
-      table.table
+      table#table.table
         thead
           tr
             th(scope="col") #
@@ -24,7 +24,7 @@ block content
         tbody
           each question in questions
             tr
-              th(scope="row") *
+              td *
               td
                 a(href="/admin/edit-question/" + question._id)  #{question.title}
               td #{question.score}        
@@ -37,4 +37,24 @@ block scripts
   script.
     window.onload = function() {
        $(function(){admin.question()});
+    }
+  script.
+    function myFunction() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("search-input");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("table");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[1];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          console.log(txtValue)
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }       
+      }
     }
