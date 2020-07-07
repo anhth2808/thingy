@@ -60,6 +60,13 @@ const socketio = (io) => {
         })
     })
     
+    socket.on('clearRoomOn', () => {
+      Room.findById(DEFAULT_ROOM_ID)
+        .then(room => {
+          room.clearRoom(room)
+        })
+    })
+
     socket.on('disconnect', () => {
       console.log('User disconected')
     })

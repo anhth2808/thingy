@@ -5,7 +5,7 @@ const Report = require('./report')
 const Collection = require('./collection')
 
 var DEFAULT_ROUNDS = 5;
-
+var DEFAULT_COLLECTION = "5edfbfc52cf85f6d744665c9";
 const Schema = mongoose.Schema;
 
 const roomSchema = new Schema({
@@ -86,7 +86,7 @@ roomSchema.methods.newRound = function() {
       r.isCurrentRound = false      
     }
   })
-  Collection.findById("5edfbfc52cf85f6d744665c9")
+  Collection.findById(DEFAULT_COLLECTION)
   .then(collection => {
     this.rounds.push({
       isCurrentRound: true,
@@ -108,7 +108,9 @@ roomSchema.methods.nextRound = function(room) {
         }
         report.rounds.push(roundReport)
         reports[0].save()
-        console.log("REPORT UPDATED: ", report.roomId)
+          .then(result => {
+            console.log("REPORT UPDATED: ", report.roomId)
+          })        
 
         // update room
         room.currentRound++;
@@ -120,7 +122,7 @@ roomSchema.methods.nextRound = function(room) {
             r.isCurrentRound = false      
           }
         })
-        Collection.findById("5edfbfc52cf85f6d744665c9")
+        Collection.findById(DEFAULT_COLLECTION)
         .then(collection => {
           room.rounds.push({
             isCurrentRound: true,
@@ -128,11 +130,54 @@ roomSchema.methods.nextRound = function(room) {
             collectionId: collection
           })   
           room.save()
-          console.log("ROOM UPDATED: ", room.currentId)
+            .then(result => {
+              console.log("ROOM UPDATED: ", room.currentId)
+            })          
         }).catch()
   
       } else {
         // new report
+        console.log("run here")
+        const roundReport = {
+          roundNumber: room.currentRound,
+          users: room.connections,          
+        }
+        const report = new Report({
+          roomId: room.currentId,
+          roomTitle: room.title,
+          rounds: [
+            roundReport
+          ]
+        })
+        report.save()
+          .then(result => {
+            console.log("REPORT CREATED: ", report.roomId)
+          })
+        
+
+        // update room
+        room.currentRound++;
+        room.connections.forEach(conc => {
+          conc.score = 0;
+        })        
+        room.rounds.forEach(r => {
+          if (r.isCurrentRound) {
+            r.isCurrentRound = false      
+          }
+        })
+        Collection.findById(DEFAULT_COLLECTION)
+        .then(collection => {
+          room.rounds.push({
+            isCurrentRound: true,
+            roundNumber: room.currentRound,
+            collectionId: collection
+          })   
+          room.save()
+            .then(result => {
+              console.log("ROOM UPDATED: ", room.currentId)
+            })          
+        }).catch()
+  
       }
     })
     .catch()
@@ -149,64 +194,74 @@ roomSchema.methods.clearRoom = function(room) {
           users: room.connections,          
         }
         report.rounds.push(roundReport)
-        // reports[0].save()
+        reports[0].save()
+          .then(result => {
+            console.log("REPORT UPDATED: ", report.roomId)
+          })
         console.log(report)
-        console.log("REPORT UPDATED: ", report.roomId)
+        
 
         // update room
         room.currentRound = 0;
         room.connections = []  
         room.rounds = []
         room.currentId = new Date().toISOString()
-        
-        Collection.findById("5edfbfc52cf85f6d744665c9")
+
+        Collection.findById(DEFAULT_COLLECTION)
         .then(collection => {
           room.rounds.push({
             isCurrentRound: true,
             roundNumber: room.currentRound,
             collectionId: collection
           })   
-          // room.save()
-          console.log(room)
-          console.log("ROOM UPDATED: ", room.currentId)
+          room.save()
+            .then(result => {
+              console.log("ROOM UPDATED: ", room.currentId)
+            })
         }).catch()
   
       } else {
         // new report
+        console.log("run here")
+        const roundReport = {
+          roundNumber: room.currentRound,
+          users: room.connections,          
+        }
+        const report = new Report({
+          roomId: room.currentId,
+          roomTitle: room.title,
+          rounds: [
+            roundReport
+          ]
+        })
+        report.save()
+          .then(result => {
+            console.log("REPORT CREATED: ", report.roomId)
+          })
+        
+
+        // update room
+        room.currentRound = 0;
+        room.connections = []  
+        room.rounds = []
+        room.currentId = new Date().toISOString()
+
+        Collection.findById(DEFAULT_COLLECTION)
+        .then(collection => {
+          room.rounds.push({
+            isCurrentRound: true,
+            roundNumber: room.currentRound,
+            collectionId: collection
+          })   
+          room.save()
+            .then(result => {
+              console.log("ROOM UPDATED: ", room.currentId)
+            })          
+        }).catch()
       }
     })
     .catch()
 }
 
-const newReport = () => {
-  User.findById("5ec0eaa8e149c02138ab465a")
-  .then(user => {
-    let round = {
-      roundNumber: 1,
-      users: [
-        {
-          user: user,
-          score: 12,
-        }
-      ]
-    }
-    const report = new Report({
-      roomId: "123",
-      rounds: [
-        round
-      ],
-    })
-    console.log(report)
-    report.save()
-      .then((e) => {
-        res.redirect("/")
-      })
-  })
-  .catch(err => {
-    const error = new Error(err)
-    error.httpStatusCode = 500
-    return next(error)
-  }) 
-}
 
 module.exports = mongoose.model('Room', roomSchema);

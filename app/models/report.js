@@ -13,6 +13,7 @@ const roundReportSchema = new Schema({
 
 const reportSchema = new Schema({
   roomId: {type: String},
+  roomTitle: {type: String},
   rounds: [roundReportSchema],  
   createdAt: { type: Date, default: Date.now },
 })

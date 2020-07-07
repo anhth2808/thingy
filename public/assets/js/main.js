@@ -37,8 +37,19 @@ var app = {
 
     const socketEmitNextRound = () => {
       $('.btn-next-round').click(e => {
-        console.log("run")
-        socket.emit('nextRoundOn')
+        if (confirm('Bạn có chắc chắn muốn chuyển đến vòng tiếp theo ?')) {
+          console.log("run")
+          socket.emit('nextRoundOn')
+        }
+      })
+    }
+
+    const socketEmitClearRoom = () => {
+      $('.btn-clear-room').click(e => {
+        if (confirm('Bạn có chắc chắn muốn tạo lại phòng ?')) {
+          console.log("run")
+          socket.emit('clearRoomOn')          
+        }
       })
     }
 
@@ -124,6 +135,7 @@ var app = {
     socketSendMessageToTeams()
     socketListenUpdateRanking()
     socketEmitNextRound()
+    socketEmitClearRoom()
   },
 
   game: () =>  {
