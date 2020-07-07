@@ -27,6 +27,8 @@ block content
                     td
                       input(name="status", class="form-check-input", value="1",type="checkbox", checked="true")
                 - else
+                    td
+                      input(name="status", class="form-check-input", type="checkbox")
                 - if (user.admin)
                     td
                       input(name="admin", class="form-check-input", value="1",type="checkbox", checked="true")
