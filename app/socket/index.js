@@ -53,6 +53,13 @@ const socketio = (io) => {
         })
     })
 
+    socket.on('nextRoundOn', () => {
+      Room.findById(DEFAULT_ROOM_ID)
+        .then(room => {
+          room.nextRound(room)
+        })
+    })
+    
     socket.on('disconnect', () => {
       console.log('User disconected')
     })

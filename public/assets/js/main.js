@@ -35,6 +35,13 @@ var app = {
       })
     }
 
+    const socketEmitNextRound = () => {
+      $('.btn-next-round').click(e => {
+        console.log("run")
+        socket.emit('nextRoundOn')
+      })
+    }
+
     const socketSubmitAwnser = (team) => {
       $(`.submit-awnser#${team.userId}`).click(e => {
         // update score
@@ -116,6 +123,7 @@ var app = {
     // socket running function
     socketSendMessageToTeams()
     socketListenUpdateRanking()
+    socketEmitNextRound()
   },
 
   game: () =>  {

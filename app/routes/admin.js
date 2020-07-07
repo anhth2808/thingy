@@ -6,6 +6,7 @@ const adminCtrl = require('../controllers/admin')
 const collectionCtrl = require('../controllers/collection')
 const questionCtrl = require('../controllers/question')
 const userCtrl = require('../controllers/user')
+const reportCtrl = require('../controllers/report')
 
 const router = express.Router()
 
@@ -61,5 +62,10 @@ router.post('/collection', collectionCtrl.collectionCreate)
 router.post('/collection/:collectionid', collectionCtrl.collectionUpdateOne)
 
 router.get('/collection/:collectionid/remove/:questionid', collectionCtrl.collectionRemoveQuestion)
+
+
+// report api
+
+router.get('/report', reportCtrl.postAddReport)
 
 module.exports = router
