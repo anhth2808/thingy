@@ -296,3 +296,19 @@ exports.roomChangeCollection = (req, res, next) => {
         })
     })
 }
+
+exports.roomChangeTitle = (req, res, next) => {
+  Room.findById(req.params.roomid)
+  .then(room => {
+    if (!room) {
+    }
+    room.title = req.body.roomTitle
+    room.save()
+    res.redirect('/')
+  })
+  .catch(err => {
+    const error = new Error(err)
+      error.httpStatusCode = 500
+      return next(error)
+  })
+}

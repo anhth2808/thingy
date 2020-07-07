@@ -100,3 +100,23 @@ exports.postEditQuestion = (req, res, next) => {
       return next(error)
     })
 }
+
+
+exports.getQuestionDetail = (req, res, next) => {
+  const questionId = req.params.questionId
+  Question.findById(questionId)
+    .then(question => {
+      if (!question) {
+        sendJsonResponse(res, 404, {'message':'err'})
+        return
+      }
+      sendJsonResponse(res, 200, question)
+      return
+    })
+    .catch(err => {
+      const error = new Error(err)
+      error.httpStatusCode = 500
+      return next(error)
+    })
+
+}

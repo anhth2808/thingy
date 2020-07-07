@@ -29,6 +29,18 @@ var app = {
       socketSubmitAwnser(team)
     })
 
+    const socketListenReportURL = () => {
+      socket.on('sendReportURL', url => {
+        console.log(url)
+        window.open(`/admin/report/${url}`)
+
+        // clear user
+        $('.ranking tbody').html('')
+        $('#RoomTitleModal').modal('show')
+        // show pop up, nhap room title
+      })
+    }
+
     const socketListenUpdateRanking = () => {
       socket.on('updateRanking', room => {
         app.helpers.showRanking(room)
@@ -124,16 +136,40 @@ var app = {
       })
     }
 
-    
+    const getDetailQuestion = () => {
+      $('.btn-detail').click(e => {
+        console.log(e.target.getAttribute('id'))
+        const API = HOST + `/api/question/${e.target.getAttribute('id')}` 
+
+        fetch(API, {
+          method: "GET",       
+        })
+        .then(result => {
+          return result.json()
+        })
+        .then(data => {
+          $('.detail-title').val(data.title)
+          $('.detail-description').html(data.description)
+          $('.detail-score').val(data.score)
+          $('.detail-answer').val(data.answer)
+          console.log(data)
+        })
+        .catch(err => {
+          console.log(err)
+        });
+      })
+    }
 
     // AJAX running function
     // getCollection()
     // getCollectionListForSelect()
     actionCollectionSelected()
+    getDetailQuestion()
     console.log("run")
     // socket running function
     socketSendMessageToTeams()
     socketListenUpdateRanking()
+    socketListenReportURL()
     socketEmitNextRound()
     socketEmitClearRoom()
   },

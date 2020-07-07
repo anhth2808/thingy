@@ -12,7 +12,7 @@ block content
       h1 #{report.roundTitle}
     .container
       each round in report.rounds
-        h2 Vòng: #{round.roundNumber}
+        h2 Vòng  #{round.roundNumber}:
         table.table
           thead
             tr
@@ -27,7 +27,7 @@ block content
                 td #{user.user.email}
                 td #{user.score}
     .container
-      h2 Tổng kết:
+      h2 Tổng cộng:
       table.table
         thead
           tr

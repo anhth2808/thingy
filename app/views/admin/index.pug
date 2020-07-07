@@ -50,7 +50,7 @@ block content
                           .tab-content
                             .tab-question
                               p #{question.questionId.title}
-                              button.btn.btn-primary(id=question.questionId._id) Chi tiết
+                              button.btn.btn-primary.btn-detail(id=question.questionId._id, data-toggle='modal', data-target='#DetailQuestionModal') Chi tiết
                               button.btn.btn-primary.send-question-button(id=question.questionId._id) Gửi câu hỏi
               - }
             
@@ -88,6 +88,24 @@ block content
                           th(scope="row") *
                           td #{connection.user.email}
                           td #{connection.score}  
+  #RoomTitleModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='RoomTitleModal', aria-hidden='true')
+    .modal-dialog(role='document')
+      .modal-content
+        form(action="/admin/room/" + room._id + "/changeTitle", method="post")
+          input(type="hidden", name="isUpdateQuestion", value="1")
+          .modal-header
+            h5#RoomTitleModal.modal-title Nhập tên phòng
+            //- button.close(type='button', data-dismiss='modal', aria-label='Close')
+            //-   span(aria-hidden='true') ×
+          .modal-body          
+            .row
+              .col-md-12
+                .form-group
+                  label Tên phòng
+                  input.form-control(type='text', class="text-dark", name="roomTitle")
+          .modal-footer
+            //- button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+            button.btn.btn-primary.btn-new-title(type='submit') Xác nhận
   // Modal
   #exampleModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
     .modal-dialog(role='document')
@@ -122,6 +140,40 @@ block content
           .modal-footer
             button.btn.btn-secondary(type='button', data-dismiss='modal') Close
             button.btn.btn-primary(type='submit') Tạo
+  
+  #DetailQuestionModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='DetailQuestionModal', aria-hidden='true')
+      .modal-dialog(role='document')
+        .modal-content
+          form(action="/admin/collection/" + collectionId, method="post")
+            input(type="hidden", name="isUpdateQuestion", value="1")
+            .modal-header
+              h5#DetailQuestionModal.modal-title Chi tiết
+              button.close(type='button', data-dismiss='modal', aria-label='Close')
+                span(aria-hidden='true') ×
+            .modal-body          
+              .row
+                .col-md-12
+                  .form-group
+                    label Tựa đề
+                    input.form-control.detail-title(type='text', class="text-dark", name="title")
+              .row
+                .col-md-12
+                  .form-group
+                    label Nội Dung
+                    .detail-description                      
+              .row
+                .col-md-12
+                  .form-group
+                    label Số điểm
+                    input.form-control.detail-score(type='number', class="text-dark", name="score")
+              .row
+                .col-md-12
+                  .form-group
+                    label Đáp án
+                    input.form-control.detail-answer(type='text', class="text-dark", name="answer")
+            .modal-footer
+              button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+              //- button.btn.btn-primary(type='submit') Tạo
 block scripts
   script.
     window.onload = function() {

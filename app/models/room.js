@@ -183,7 +183,7 @@ roomSchema.methods.nextRound = function(room) {
     .catch()
 }
 
-roomSchema.methods.clearRoom = function(room) {
+roomSchema.methods.clearRoom = function(room, socket) {
   Report.find({"roomId": room.currentId})
     .then(reports => {
       if (reports.length) {
@@ -237,6 +237,8 @@ roomSchema.methods.clearRoom = function(room) {
         report.save()
           .then(result => {
             console.log("REPORT CREATED: ", report.roomId)
+            socket.emit('sendReportURL', report._id)
+            socket.broadcast.to(room._id).emit('sendReportURL', report._id);          
           })
         
 

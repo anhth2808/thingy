@@ -20,7 +20,12 @@
   padding: 30px 0 0 0;
 }
 
-
+.form-group h1,
+.form-group h2,
+.form-group h3,
+.form-group h4 {
+  color: #222a42;
+}
 
 .page-background {
   position: absolute;
