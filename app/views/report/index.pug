@@ -1,0 +1,37 @@
+extends ../layouts/admin-layout.pug
+
+include ../_includes/sharedHTMLfunctions.pug
+
+block styles
+  style.
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+block content
+  .section.section-tabs
+    .container
+      form
+        label.text-white(for="search-input") Tìm kiếm:
+        input.form-control#search-input(type="text", placelder="Tìm kiếm")
+    .container
+      table.table
+        thead
+          tr
+            th(scope="col") #
+            th(scope="col") Tên phòng
+            th(scope="col") Ngày tạo
+            th(scope="col")
+        tbody
+          each report in reports
+            tr
+              th(scope="row") *
+              td
+                a(href="/admin/report/" + report._id)  #{report.roomTitle}
+              td 
+                +formatDate(report.roomId)
+
+      
+block scripts
+  script(src="/assets/js/admin.js")
+  script.
+    window.onload = function() {
+       $(function(){admin.question()});
+    }

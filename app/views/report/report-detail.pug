@@ -1,0 +1,52 @@
+extends ../layouts/admin-layout.pug
+
+include ../_includes/sharedHTMLfunctions.pug
+
+block styles
+  style.
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+block content
+  .section.section-tabs
+
+    .container
+      h1 #{report.roundTitle}
+    .container
+      each round in report.rounds
+        h2 Vòng: #{round.roundNumber}
+        table.table
+          thead
+            tr
+              th(scope="col") #
+              th(scope="col") Tên người dùng
+              th(scope="col") Điểm
+              th(scope="col")
+          tbody
+            each user in round.users
+              tr
+                th(scope="row") *
+                td #{user.user.email}
+                td #{user.score}
+    .container
+      h2 Tổng kết:
+      table.table
+        thead
+          tr
+            th(scope="col") #
+            th(scope="col") Tên người dùng
+            th(scope="col") Điểm
+            th(scope="col")
+        tbody
+          each user in report.rounds[0].users
+            tr
+              th(scope="row") *
+              td #{user.user.email}
+              td
+                +totalScore(report, user.user._id)
+
+      
+block scripts
+  script(src="/assets/js/admin.js")
+  script.
+    window.onload = function() {
+       $(function(){admin.question()});
+    }

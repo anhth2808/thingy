@@ -5,6 +5,45 @@ const Report = require("../models/report")
 const User = require("../models/user")
 
 
+exports.getReports = (req, res, next) => {
+  Report.find()
+    .then(reports => {
+      if (!reports) {
+        //
+      }
+      console.log(reports)
+      res.render('./report/index', {
+        pageTitle: 'Reports List',
+        reports: reports
+      })
+    })
+    .catch(err => {
+      const error = new Error(err)
+      error.httpStatusCode = 500
+      return next(error)
+    })
+}
+
+exports.getReport = (req, res, next) => {
+  const reportId = req.params.reportId
+  Report.findById(reportId)
+    .then(report => {
+      if (!report) {
+        //
+      }
+      console.log(report)
+      res.render('./report/report-detail', {
+        pageTitle: 'Report detail',
+        report: report
+      })
+    })
+    .catch(err => {
+      const error = new Error(err)
+      error.httpStatusCode = 500
+      return next(error)
+    })
+}
+
 exports.postAddReport = (req, res, next) => {
   User.findById("5ec0eaa8e149c02138ab465a")
     .then(user => {

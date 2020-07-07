@@ -66,6 +66,8 @@ router.get('/collection/:collectionid/remove/:questionid', collectionCtrl.collec
 
 // report api
 
-router.get('/report', reportCtrl.postAddReport)
+router.get('/report', reportCtrl.getReports)
+
+router.get('/report/:reportId', reportCtrl.getReport)
 
 module.exports = router
